@@ -21,6 +21,9 @@ var doubleJump;
 var playerStartX;
 var playerStartY;
 
+// scale/camera
+var worldScale=1;
+
 // interactable
 var hazards;
 var stars;
@@ -43,7 +46,7 @@ function create() {
     doubleJump = 1;
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
- //   game.world.setBounds(0,0,1000,1000);
+   game.world.setBounds(0,0,1000,1000); // (x,y, width, height)?
     //  A simple background for our game
     game.add.sprite(0, 0, 'sky');
 
@@ -62,12 +65,16 @@ function create() {
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
-    //  Now let's create two ledges
+    //  Now let's create some ledges
     var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
     ledge = platforms.create(-150, 250, 'ground');
     ledge.body.immovable = true;
+    
+    ledge = platforms.create(200,game.world.height-200, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.1,1);
 
     // The player and its 
     playerStartX = 32;
@@ -123,7 +130,15 @@ function create() {
 
    // timer = game.add.bitmapText(250, 250, 'desyrel', '00:00:00', 20);
     //  Our controls.
-    game.camera.follow(player);
+    game.world.scale.set(worldScale);
+    /*
+         Camera follow options:
+      FOLLOW_PLATFORMER
+      FOLLOW_LOCKON
+      FOLLOW_TOPDOWN
+      FOLLOW_TOPDOWN_TIGHT
+    */
+    game.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
     cursors = game.input.keyboard.createCursorKeys();
     setEventHandlers();
 }
