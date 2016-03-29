@@ -1,8 +1,9 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
    //http://opengameart.org/content/bevouliin-free-game-obstacle-spikes
    game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
+    game.time.advancedTiming = true;
    game.load.image('diamond','assets/diamond.png');
     game.load.image('spike','assets/spike D.png');
     game.load.image('sky', 'assets/sky.png');
@@ -293,6 +294,9 @@ function update() {
         doubleJump-=1;
     }
     socket.emit('move player',{ x: player.x, y: player.y });
+}
+function render(){
+    game.debug.text(game.time.fps,2,14, "#00ff00");
 }
 
 function collectStar (player, star) {
