@@ -17,6 +17,7 @@ function preload() {
 var player;
 var platforms;
 var cursors;
+var reset_key;
 var doubleJump;
 var playerStartX;
 var playerStartY;
@@ -46,10 +47,11 @@ function create() {
     doubleJump = 1;
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-   game.world.setBounds(0,0,2000,1000); // (x,y, width, height)?
+   game.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
     //  A simple background for our game
     var sky = game.add.sprite(0, 0, 'sky');
     sky.scale.setTo(4, 4);
+    
 
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -60,42 +62,87 @@ function create() {
 
     // Here we create the ground.
     var ground = platforms.create(0, game.world.height - 64, 'ground');
-    var ground2 = platforms.create(300, game.world.height - 64, 'ground');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 2);
-    ground2.scale.setTo(2, 2);
+    ground.scale.setTo(6, 2);
 
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
-    ground2.body.immovable = true;
 
     //  Now let's create some ledges
-    var ledge = platforms.create(400, 400, 'ground');
-    ledge.body.immovable = true;
+    // var ledge = platforms.create(400, 400, 'ground');
+    // ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 250, 'ground');
-    ledge.body.immovable = true;
+    // ledge = platforms.create(-150, 250, 'ground');
+    // ledge.body.immovable = true;
     
-    ledge = platforms.create(200,game.world.height-150, 'ground');
+    var ledge = platforms.create(350,game.world.height-150, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(550,game.world.height-240, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(350,game.world.height-330, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(550,game.world.height-420, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(120,game.world.height-510, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.9,1);
+
+    ledge = platforms.create(0,game.world.height-600, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.1,1);
 
-    ledge = platforms.create(300,game.world.height-250, 'ground');
+    ledge = platforms.create(120,game.world.height-690, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(1.5,1);
+
+    ledge = platforms.create(120,game.world.height-780, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(1.2,1);
+
+    ledge = platforms.create(920,game.world.height-600, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(1220,game.world.height-510, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(1650,game.world.height-510, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(1850,game.world.height-600, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.1,1);
 
-    ledge = platforms.create(400,game.world.height-350, 'ground');
+    ledge = platforms.create(1960,game.world.height-690, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.1,1);
 
-    ledge = platforms.create(300,game.world.height-450, 'ground');
+    ledge = platforms.create(1850,game.world.height-780, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.1,1);
+
+    ledge = platforms.create(1650,game.world.height-870, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(1850,game.world.height-960, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
 
     // The player and its 
-    playerStartX = 32;
-    playerStartY = game.world.height - 150;
+    playerStartX = 1650; //original : 32
+    playerStartY = game.world.height - 800; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
     //  We need to enable physics on the player
@@ -120,12 +167,29 @@ function create() {
     hazards = game.add.group();
     hazards.enableBody=true;
     for(var i=0;i<5;i++){
-        
-        var hazard = hazards.create(40+i*10,218, 'spike');
+
+        var hazard = hazards.create(385+i*10, game.world.height-541, 'spike');
         hazard.scale.setTo(.1,.1);
         hazard.body.immovable = true;
     }
-    hazards.create(550,300,'diamond');
+
+    for(var i=0;i<5;i++){
+
+        hazard = hazards.create(275+i*10, game.world.height-541, 'spike');
+        hazard.scale.setTo(.1,.1);
+        //hazard.angle += 180;
+        hazard.body.immovable = true;
+    }
+
+    for(var i=0;i<5;i++){
+
+        hazard = hazards.create(165+i*10, game.world.height-541, 'spike');
+        hazard.scale.setTo(.1,.1);
+        //hazard.angle += 180;
+        hazard.body.immovable = true;
+    }
+
+    //hazards.create(550,300,'diamond');
     //  Finally some stars to collect
     stars = game.add.group();
 
@@ -133,17 +197,26 @@ function create() {
     stars.enableBody = true;
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 2; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create(200 + i * 100, 0, 'star');
+    // for (var i = 0; i < 2; i++)
+    // {
+    //     //  Create a star inside of the 'stars' group
+    //     var star = stars.create(200 + i * 100, 0, 'star');
+
+    //     //  Let gravity do its thing
+    //     star.body.gravity.y = 300;
+
+    //     //  This just gives each star a slightly random bounce value
+    //     star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    // }
+
+        //Create a star inside of the 'stars' group
+        var star = stars.create(1265, 400, 'star');
 
         //  Let gravity do its thing
         star.body.gravity.y = 300;
 
         //  This just gives each star a slightly random bounce value
         star.body.bounce.y = 0.7 + Math.random() * 0.2;
-    }
 
    // timer = game.add.bitmapText(250, 250, 'desyrel', '00:00:00', 20);
     //  Our controls.
@@ -157,6 +230,7 @@ function create() {
     */
     game.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
     cursors = game.input.keyboard.createCursorKeys();
+    reset_key = game.input.keyboard.addKey(Phaser.Keyboard.R);
     setEventHandlers();
 }
 
@@ -304,6 +378,11 @@ function update() {
 
         player.animations.play('right');
     }
+    else if(reset_key.isDown)
+    {
+      player.body.x = 32;
+      player.body.y = game.world.height - 150;
+    }
     else
     {
         //  Stand still
@@ -325,6 +404,7 @@ function update() {
         player.body.velocity.y = -350;
         doubleJump-=1;
     }
+
     socket.emit('move player',{ x: player.x, y: player.y });
 }
 function render(){

@@ -29,6 +29,9 @@ var server = http.createServer(
   init()
 })
 
+console.log("Pit Race Server started on port " + port);
+
+
 function init () {
   // Create an empty array to store players
   players = []
