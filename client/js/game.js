@@ -44,7 +44,10 @@ var players;
 
 function create() {
     socket = io.connect();
-    doubleJump = 1;
+
+    //change to -1 to disable doubleJump, change to 0 to enable. Stars will enable.
+    doubleJump = -1;
+
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
    game.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
@@ -108,6 +111,11 @@ function create() {
     ledge.body.immovable = true;
     ledge.scale.setTo(1.2,1);
 
+    //ahead trap ledge
+    ledge = platforms.create(650,game.world.height-870, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
     ledge = platforms.create(920,game.world.height-600, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.3,1);
@@ -140,9 +148,29 @@ function create() {
     ledge.body.immovable = true;
     ledge.scale.setTo(.3,1);
 
+    ledge = platforms.create(1250,game.world.height-960, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(850,game.world.height-1100, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(450,game.world.height-1240, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(850,game.world.height-1380, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(.3,1);
+
+    ledge = platforms.create(1250,game.world.height-1520, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(1.5,1);
+
     // The player and its 
-    playerStartX = 1650; //original : 32
-    playerStartY = game.world.height - 800; //original : 150
+    playerStartX = 1700; //original : 32
+    playerStartY = game.world.height - 1600; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
     //  We need to enable physics on the player
@@ -189,7 +217,7 @@ function create() {
         hazard.body.immovable = true;
     }
 
-    //hazards.create(550,300,'diamond');
+    hazards.create(1800,450,'diamond');
     //  Finally some stars to collect
     stars = game.add.group();
 
@@ -210,7 +238,7 @@ function create() {
     // }
 
         //Create a star inside of the 'stars' group
-        var star = stars.create(1265, 400, 'star');
+        var star = stars.create(1265, 1200, 'star');
 
         //  Let gravity do its thing
         star.body.gravity.y = 300;
@@ -418,6 +446,7 @@ function collectStar (player, star) {
     // Only updates player's motion for an instant. need to modify it
     // for x seconds
     player.body.velocity.x *= 3;
+    doubleJump += 1;
 
 }
 
