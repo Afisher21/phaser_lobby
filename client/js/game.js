@@ -32,6 +32,8 @@ var hazards;
 var stars;
 var trapOneSpikes;
 var buttonOne;
+var buttonTwo;
+var buttonThree;
 
 // Timer
 // code from http://www.html5gamedevs.com/topic/1870-in-game-timer/
@@ -172,8 +174,8 @@ function create() {
     ledge.scale.setTo(1.5,1);
 
     // The player and its 
-    playerStartX = 32; //original : 32
-    playerStartY = game.world.height - 150; //original : 150
+    playerStartX = 1800; //original : 32
+    playerStartY = game.world.height - 1500; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
     //  We need to enable physics on the player
@@ -227,6 +229,26 @@ function create() {
     var trapButtonOne = buttonOne.create(990, 2380, 'button');
     buttonOne.scale.setTo(.5,.5);
     trapButtonOne.body.immovable = true;
+
+
+    //trap two of the map
+    buttonTwo = game.add.group();
+    buttonTwo.enableBody = true;
+    var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
+    buttonTwo.scale.setTo(.5,.5);
+    trapButtonTwo.body.immovable = true;
+    trapButtonTwo.anchor.setTo(.5,.5);
+    trapButtonTwo.scale.x *= -1;
+
+
+    //trap three of the map
+    buttonThree = game.add.group();
+    buttonThree.enableBody = true;
+    var trapButtonThree = buttonThree.create(3880, 2050, 'button');
+    buttonThree.scale.setTo(.5,.5);
+    trapButtonThree.body.immovable = true;
+    trapButtonThree.anchor.setTo(.5,.5);
+    trapButtonThree.scale.x *= -1;
 
 
     trapOneSpikes = game.add.group();
@@ -502,6 +524,7 @@ function resetPlayer (player, hazard){
 }
 
 function reset(){
+    player.kill();
     player.reset(32, game.world.height - 150);
 }
 
