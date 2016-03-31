@@ -10,6 +10,7 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('button', 'assets/button.png');
+    game.load.image('trapTwoGun', 'assets/trapTwoGun.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
 }
@@ -174,8 +175,8 @@ function create() {
     ledge.scale.setTo(1.5,1);
 
     // The player and its 
-    playerStartX = 1800; //original : 32
-    playerStartY = game.world.height - 1500; //original : 150
+    playerStartX = 32; //original : 32
+    playerStartY = game.world.height - 150; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
     //  We need to enable physics on the player
@@ -239,16 +240,26 @@ function create() {
     trapButtonTwo.body.immovable = true;
     trapButtonTwo.anchor.setTo(.5,.5);
     trapButtonTwo.scale.x *= -1;
+    var trapTwoGun = buttonTwo.create(1345, 2010, 'trapTwoGun');
+    trapTwoGun.scale.setTo(2,2);
+    trapTwoGun.body.immovable = true;
+
+
 
 
     //trap three of the map
     buttonThree = game.add.group();
     buttonThree.enableBody = true;
-    var trapButtonThree = buttonThree.create(3880, 2050, 'button');
+    var trapButtonThree = buttonThree.create(3885, 2050, 'button');
     buttonThree.scale.setTo(.5,.5);
     trapButtonThree.body.immovable = true;
     trapButtonThree.anchor.setTo(.5,.5);
     trapButtonThree.scale.x *= -1;
+    var trapTwoGun = buttonTwo.create(3860, 2150, 'trapTwoGun');
+    trapTwoGun.scale.setTo(2,2);
+    trapTwoGun.body.immovable = true;
+    trapTwoGun.anchor.setTo(.5,.5);
+    trapTwoGun.scale.y *= -1;
 
 
     trapOneSpikes = game.add.group();
