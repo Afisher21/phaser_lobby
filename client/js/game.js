@@ -385,15 +385,12 @@ function onActivateTrap(data){
 	var trap = data.trapNumb;
 	if (trap === 1){
 		activateTrapOne();
-		game.time.events.add(3000, resetTrapOne, this);
 	}
    if (trap === 2){
       activateTrapTwo();
-      game.time.events.add(1500, resetTrapTwo, this);
    }
    if (trap === 3){
       activateTrapThree();
-      game.time.events.add(1500, resetTrapThree, this);
    }
 }
 
@@ -592,14 +589,14 @@ function activateTrapOneContainer (player, trapButtonOne){
         //trapButtonOne.kill();
 		socket.emit('trap activated',{ trapNumb: 1 });
       activateTrapOne();
-      game.time.events.add(3000, resetTrapOne, this);
     }    
 }
 function activateTrapOne(){
     trapOneSpikes.setAll('y', 1288);
-}
-function resetTrapOne (){
-    trapOneSpikes.setAll('y', 1312);
+   function resetTrapOne (){
+      trapOneSpikes.setAll('y', 1312);
+   }
+      game.time.events.add(3000, resetTrapOne, this);
 }
 
 
@@ -611,14 +608,14 @@ function activateTrapTwoContainer (player, trapButtonTwo){
         //game.time.events.add(3000, resetTrapOne, this);
         socket.emit('trap activated',{ trapNumb: 2 });
         activateTrapTwo();
-        game.time.events.add(1500, resetTrapTwo, this);
     }   
 }
 function activateTrapTwo(){
     trapTwoLaser.setAll('x', 700);
-}
-function resetTrapTwo (){
-    trapTwoLaser.setAll('x', -100);
+   function resetTrapTwo (){
+       trapTwoLaser.setAll('x', -100);
+   }
+    game.time.events.add(1500, resetTrapTwo, this);
 }
 
 
@@ -630,14 +627,14 @@ function activateTrapThreeContainer (player, trapButtonThree){
         //game.time.events.add(3000, resetTrapOne, this);
         socket.emit('trap activated',{ trapNumb: 3 });
         activateTrapThree();
-        game.time.events.add(1500, resetTrapThree, this);
     }   
 }
 function activateTrapThree(){
     trapThreeLaser.setAll('x', 1928);
-}
-function resetTrapThree (){
-    trapThreeLaser.setAll('x', 2050);
+   function resetTrapThree (){
+       trapThreeLaser.setAll('x', 2050);
+   }
+   game.time.events.add(1500, resetTrapThree, this);
 }
 
 
