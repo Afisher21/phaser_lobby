@@ -385,15 +385,12 @@ function onActivateTrap(data){
 	var trap = data.trapNumb;
 	if (trap === 1){
 		activateTrapOne();
-		game.time.events.add(3000, resetTrapOne, this);
 	}
    if (trap === 2){
       activateTrapTwo();
-      game.time.events.add(1500, resetTrapTwo, this);
    }
    if (trap === 3){
       activateTrapThree();
-      game.time.events.add(1500, resetTrapThree, this);
    }
 }
 
