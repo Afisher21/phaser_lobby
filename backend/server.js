@@ -6,7 +6,7 @@ var io = require('socket.io')
 
 var Player = require('./Player')
 
-var port = process.env.PORT || 10001
+var port = process.env.PORT || 10003
 
 /* ************************************************
 ** GAME VARIABLES
