@@ -2,7 +2,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
    //http://opengameart.org/content/bevouliin-free-game-obstacle-spikes
-   game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
+  // game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
     game.time.advancedTiming = true;
    game.load.image('diamond','assets/diamond.png');
     game.load.image('spike','assets/spike D.png');
@@ -376,6 +376,17 @@ var setEventHandlers = function () {
 
   // Player removed message received
   socket.on('remove player', onRemovePlayer);
+  
+  // check traps
+  socket.on('trap activated', onActivateTrap);
+}
+// Activate trap
+function onActivateTrap(data){
+	var trap = data.trapNumb;
+	if(trap === 1){
+		activateTrapOne();
+		game.time.events.add(3000, resetTrapOne, this);
+	}
 }
 
 // Socket connected for first time
@@ -399,7 +410,7 @@ function onSocketDisconnect () {
 
 // New player
 function onNewPlayer (data) {
-  console.log('New player connected:', data.id);
+  console.log('New player connection in game.js:', data.id);
 
   // Avoid possible duplicate players
   var duplicate = playerById(data.id);
@@ -415,7 +426,7 @@ function onNewPlayer (data) {
 // Move player
 function onMovePlayer (data) {
   var movePlayer = playerById(data.id);
-
+   var oldX = movePlayer.player.x;
   // Player not found
   if (!movePlayer) {
     console.log('Player not found: ', data.id);
@@ -423,6 +434,14 @@ function onMovePlayer (data) {
   }
 
   // Update player position?
+  if(data.x>oldX){
+      // animate right
+      //movePlayer.player.animations.play('right');
+  }
+  if(data.x<oldX){
+     // animate left
+    // movePlayer.player.animations.play('left');
+  }
   movePlayer.player.x = data.x
   movePlayer.player.y = data.y
 }
@@ -563,6 +582,7 @@ function activateTrapOneContainer (player, trapButtonOne){
     if(interact_key.isDown)
     {
         //trapButtonOne.kill();
+		socket.emit('trap activated',{ trapNumb: 1 });
         activateTrapOne();
         game.time.events.add(3000, resetTrapOne, this);
     }    

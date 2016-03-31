@@ -59,6 +59,15 @@ function onSocketConnection (client) {
 
   // Listen for move player message
   client.on('move player', onMovePlayer)
+  
+  // Listen for trap activation
+  client.on('trap activated', onTrapActivation)
+}
+
+// Socket registered trap activation
+function onTrapActivation(data){
+  // Broadcast trap activation to connected socket clients
+  this.broadcast.emit('trap activated', {trapNumb: data.trapNumb})
 }
 
 // Socket client has disconnected
@@ -104,7 +113,6 @@ function onNewPlayer (data) {
 function onMovePlayer (data) {
   // Find player in array
   var movePlayer = playerById(this.id)
-
   // Player not found
   if (!movePlayer) {
     util.log('Player not found: ' + this.id)
