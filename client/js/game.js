@@ -10,7 +10,7 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('button', 'assets/button.png');
-    game.load.image('trapTwoGun', 'assets/trapTwoGun.png');
+    game.load.image('trapGun', 'assets/trapGun.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
 }
@@ -240,9 +240,9 @@ function create() {
     trapButtonTwo.body.immovable = true;
     trapButtonTwo.anchor.setTo(.5,.5);
     trapButtonTwo.scale.x *= -1;
-    var trapTwoGun = buttonTwo.create(1345, 2010, 'trapTwoGun');
-    trapTwoGun.scale.setTo(2,2);
-    trapTwoGun.body.immovable = true;
+    var trapGun = buttonTwo.create(1345, 2010, 'trapGun');
+    trapGun.scale.setTo(2,2);
+    trapGun.body.immovable = true;
 
 
 
@@ -255,11 +255,11 @@ function create() {
     trapButtonThree.body.immovable = true;
     trapButtonThree.anchor.setTo(.5,.5);
     trapButtonThree.scale.x *= -1;
-    var trapTwoGun = buttonTwo.create(3860, 2150, 'trapTwoGun');
-    trapTwoGun.scale.setTo(2,2);
-    trapTwoGun.body.immovable = true;
-    trapTwoGun.anchor.setTo(.5,.5);
-    trapTwoGun.scale.y *= -1;
+    var trapGun = buttonTwo.create(3860, 2150, 'trapGun');
+    trapGun.scale.setTo(2,2);
+    trapGun.body.immovable = true;
+    trapGun.anchor.setTo(.5,.5);
+    trapGun.scale.y *= -1;
 
 
     trapOneSpikes = game.add.group();
