@@ -383,10 +383,18 @@ var setEventHandlers = function () {
 // Activate trap
 function onActivateTrap(data){
 	var trap = data.trapNumb;
-	if(trap === 1){
+	if (trap === 1){
 		activateTrapOne();
 		game.time.events.add(3000, resetTrapOne, this);
 	}
+   if (trap === 2){
+      activateTrapTwo();
+      game.time.events.add(1500, resetTrapTwo, this);
+   }
+   if (trap === 3){
+      activateTrapThree();
+      game.time.events.add(1500, resetTrapThree, this);
+   }
 }
 
 // Socket connected for first time
@@ -583,8 +591,8 @@ function activateTrapOneContainer (player, trapButtonOne){
     {
         //trapButtonOne.kill();
 		socket.emit('trap activated',{ trapNumb: 1 });
-        activateTrapOne();
-        game.time.events.add(3000, resetTrapOne, this);
+      activateTrapOne();
+      game.time.events.add(3000, resetTrapOne, this);
     }    
 }
 function activateTrapOne(){
@@ -601,6 +609,7 @@ function activateTrapTwoContainer (player, trapButtonTwo){
         //trapButtonOne.kill();
         //activateTrapOne();
         //game.time.events.add(3000, resetTrapOne, this);
+        socket.emit('trap activated',{ trapNumb: 2 });
         activateTrapTwo();
         game.time.events.add(1500, resetTrapTwo, this);
     }   
@@ -619,6 +628,7 @@ function activateTrapThreeContainer (player, trapButtonThree){
         //trapButtonOne.kill();
         //activateTrapOne();
         //game.time.events.add(3000, resetTrapOne, this);
+        socket.emit('trap activated',{ trapNumb: 3 });
         activateTrapThree();
         game.time.events.add(1500, resetTrapThree, this);
     }   
