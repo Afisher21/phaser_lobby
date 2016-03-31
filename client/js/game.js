@@ -11,6 +11,7 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.image('button', 'assets/button.png');
     game.load.image('trapGun', 'assets/trapGun.png');
+    game.load.image('laser', 'assets/laser.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
 }
@@ -32,6 +33,8 @@ var worldScale=1;
 var hazards;
 var stars;
 var trapOneSpikes;
+var trapTwoLaser;
+var trapThreeLaser;
 var buttonOne;
 var buttonTwo;
 var buttonThree;
@@ -243,6 +246,11 @@ function create() {
     var trapGun = buttonTwo.create(1345, 2010, 'trapGun');
     trapGun.scale.setTo(2,2);
     trapGun.body.immovable = true;
+    trapTwoLaser = game.add.group();
+    trapTwoLaser.enableBody = true;
+    var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
+    laserTwo.scale.setTo(1,6);
+    laserTwo.body.immovable = true;
 
 
 
@@ -260,6 +268,14 @@ function create() {
     trapGun.body.immovable = true;
     trapGun.anchor.setTo(.5,.5);
     trapGun.scale.y *= -1;
+    trapThreeLaser = game.add.group();
+    trapThreeLaser.enableBody = true;
+    var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
+    laserThree.scale.setTo(1,5);
+    laserThree.body.immovable = true;
+    laserThree.anchor.setTo(.5,.5);
+    laserThree.scale.y *= -1;
+    //laserThree.visible = false;
 
 
     trapOneSpikes = game.add.group();
@@ -464,7 +480,11 @@ function update() {
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
     game.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
     game.physics.arcade.overlap(player, trapOneSpikes, resetPlayer, null, this);
+    game.physics.arcade.overlap(player, trapTwoLaser, resetPlayer, null, this);
+    game.physics.arcade.overlap(player, trapThreeLaser, resetPlayer, null, this);
     game.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
+    game.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
+    game.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
 
@@ -545,19 +565,52 @@ function activateTrapOneContainer (player, trapButtonOne){
         //trapButtonOne.kill();
         activateTrapOne();
         game.time.events.add(3000, resetTrapOne, this);
-
-    }
-
-    
-    
+    }    
 }
-
 function activateTrapOne(){
     trapOneSpikes.setAll('y', 1288);
 }
 function resetTrapOne (){
     trapOneSpikes.setAll('y', 1312);
 }
+
+
+function activateTrapTwoContainer (player, trapButtonTwo){
+    if(interact_key.isDown)
+    {
+        //trapButtonOne.kill();
+        //activateTrapOne();
+        //game.time.events.add(3000, resetTrapOne, this);
+        activateTrapTwo();
+        game.time.events.add(1500, resetTrapTwo, this);
+    }   
+}
+function activateTrapTwo(){
+    trapTwoLaser.setAll('x', 700);
+}
+function resetTrapTwo (){
+    trapTwoLaser.setAll('x', -100);
+}
+
+
+function activateTrapThreeContainer (player, trapButtonThree){
+    if(interact_key.isDown)
+    {
+        //trapButtonOne.kill();
+        //activateTrapOne();
+        //game.time.events.add(3000, resetTrapOne, this);
+        activateTrapThree();
+        game.time.events.add(1500, resetTrapThree, this);
+    }   
+}
+function activateTrapThree(){
+    trapThreeLaser.setAll('x', 1928);
+}
+function resetTrapThree (){
+    trapThreeLaser.setAll('x', 2050);
+}
+
+
 
 function updateTimer() {
     minutes = Math.floor(game.time.time / 60000) % 60;
