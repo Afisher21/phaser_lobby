@@ -9,6 +9,7 @@ function preload() {
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
+    game.load.image('button', 'assets/button.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
 }
@@ -18,6 +19,7 @@ var player;
 var platforms;
 var cursors;
 var reset_key;
+var interact_key;
 var doubleJump;
 var playerStartX;
 var playerStartY;
@@ -28,7 +30,8 @@ var worldScale=1;
 // interactable
 var hazards;
 var stars;
-// var buttons;
+var trapOneSpikes;
+var buttonOne;
 
 // Timer
 // code from http://www.html5gamedevs.com/topic/1870-in-game-timer/
@@ -57,7 +60,7 @@ function create() {
     
 
 
-    //  The platforms group contains the ground and the 2 ledges we can jump on
+    //  The platforms group contains the ground and the ledges we can jump on
     platforms = game.add.group();
 
     //  We will enable physics for any object that is created in this group
@@ -169,8 +172,8 @@ function create() {
     ledge.scale.setTo(1.5,1);
 
     // The player and its 
-    playerStartX = 1700; //original : 32
-    playerStartY = game.world.height - 1600; //original : 150
+    playerStartX = 32; //original : 32
+    playerStartY = game.world.height - 150; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
     //  We need to enable physics on the player
@@ -217,7 +220,40 @@ function create() {
         hazard.body.immovable = true;
     }
 
+
+    //trap one of the map
+    buttonOne = game.add.group();
+    buttonOne.enableBody = true;
+    var trapButtonOne = buttonOne.create(990, 2380, 'button');
+    buttonOne.scale.setTo(.5,.5);
+    trapButtonOne.body.immovable = true;
+
+
+    trapOneSpikes = game.add.group();
+    trapOneSpikes.enableBody = true;
+    for(var i=0;i<6;i++){
+
+        var spikes = trapOneSpikes.create(180+i*10, 1312, 'spike');      //1312
+        spikes.scale.setTo(.07,.07);
+        spikes.body.immovable = true;
+    }
+    for(var i=0;i<6;i++){
+
+        spikes = trapOneSpikes.create(330+i*10, 1312, 'spike');
+        spikes.scale.setTo(.07,.07);
+        spikes.body.immovable = true;
+    }
+    for(var i=0;i<6;i++){
+
+        spikes = trapOneSpikes.create(480+i*10, 1312, 'spike');
+        spikes.scale.setTo(.07,.07);
+        spikes.body.immovable = true;
+    }
+
+
+    //end of race
     hazards.create(1800,450,'diamond');
+
     //  Finally some stars to collect
     stars = game.add.group();
 
@@ -249,6 +285,8 @@ function create() {
    // timer = game.add.bitmapText(250, 250, 'desyrel', '00:00:00', 20);
     //  Our controls.
     game.world.scale.set(worldScale);
+    game.world.bringToTop(player);
+
     /*
          Camera follow options:
       FOLLOW_PLATFORMER
@@ -259,6 +297,7 @@ function create() {
     game.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
     cursors = game.input.keyboard.createCursorKeys();
     reset_key = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    interact_key = game.input.keyboard.addKey(Phaser.Keyboard.T);
     setEventHandlers();
 }
 
@@ -383,12 +422,16 @@ function update() {
     //  Collide the player and the stars with the platforms
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(stars, platforms);
-        game.physics.arcade.collide(hazards, stars);    
+        game.physics.arcade.collide(hazards, stars);   
+        //game.physics.arcade.collide(player,buttons);
+        //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);   
       // players[i].update();
     //}
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
-    game.physics.arcade.overlap(player,hazards, resetPlayer, null, this);
+    game.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
+    game.physics.arcade.overlap(player, trapOneSpikes, resetPlayer, null, this);
+    game.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
 
@@ -445,16 +488,43 @@ function collectStar (player, star) {
     star.kill();
     // Only updates player's motion for an instant. need to modify it
     // for x seconds
-    player.body.velocity.x *= 3;
+    //player.body.velocity.x *= 3;
     doubleJump += 1;
 
 }
 
 function resetPlayer (player, hazard){
     player.kill();
-    player.reset(32, game.world.height - 150);
+    game.time.events.add(1500, reset, this);
+
+    //player.reset(32, game.world.height - 150);
 
 }
+
+function reset(){
+    player.reset(32, game.world.height - 150);
+}
+
+function activateTrapOneContainer (player, trapButtonOne){
+    if(interact_key.isDown)
+    {
+        //trapButtonOne.kill();
+        activateTrapOne();
+        game.time.events.add(3000, resetTrapOne, this);
+
+    }
+
+    
+    
+}
+
+function activateTrapOne(){
+    trapOneSpikes.setAll('y', 1288);
+}
+function resetTrapOne (){
+    trapOneSpikes.setAll('y', 1312);
+}
+
 function updateTimer() {
     minutes = Math.floor(game.time.time / 60000) % 60;
     seconds = Math.floor(game.time.time / 1000) % 60;
