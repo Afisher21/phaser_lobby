@@ -11,6 +11,7 @@ var RemotePlayer = function(index, game, player, startX, startY) {
     game.physics.arcade.enable(this.player);
     //this.player.body.gravity.y = 600;
     this.player.body.collideWorldBounds = true;
+    this.player.body.immovable = true
 
     //  Our two animations, walking left and right.
     this.player.animations.add('left', [0, 1, 2, 3], 10, true);
