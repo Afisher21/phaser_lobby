@@ -528,8 +528,8 @@ function update() {
     }
     else if(reset_key.isDown)
     {
-      player.body.x = 32;
-      player.body.y = game.world.height - 150;
+      player.body.x = playerStartX;
+      player.body.y = playerStartY;
     }
     else
     {
@@ -563,9 +563,7 @@ function collectStar (player, star) {
     
     // Removes the star from the screen
     star.kill();
-    // Only updates player's motion for an instant. need to modify it
-    // for x seconds
-    //player.body.velocity.x *= 3;
+
     doubleJump += 1;
 
 }
@@ -580,7 +578,7 @@ function resetPlayer (player, hazard){
 
 function reset(){
     player.kill();
-    player.reset(32, game.world.height - 150);
+    player.reset(playerStartX, playerStartY);
 }
 
 function activateTrapOneContainer (player, trapButtonOne){
