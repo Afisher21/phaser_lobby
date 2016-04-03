@@ -585,6 +585,7 @@ function touchFlag(player, flag){
    resetPlayer(player,flag);
 }
 function resetPlayer (player, hazard){
+    player.kill();
     game.time.events.add(1500, reset, this);
 
     //player.reset(32, game.world.height - 150);
@@ -592,8 +593,8 @@ function resetPlayer (player, hazard){
 }
 
 function reset(){
-     player.body.x = playerStartX;
-     player.body.y = playerStartY;
+    player.kill();
+    player.reset(playerStartX, playerStartY);
 }
 
 function activateTrapOneContainer (player, trapButtonOne){
