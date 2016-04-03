@@ -218,7 +218,7 @@ function create() {
 
    // Add a Hazard
     hazards = game.add.group();
-    //hazards.enableBody=true;
+    hazards.enableBody=true;
     for(var i=0;i<5;i++){
 
         var hazard = hazards.create(385+i*10, game.world.height-541, 'spike');
@@ -245,10 +245,10 @@ function create() {
 
     //trap one of the map
     buttonOne = game.add.group();
-    buttonOne.enableBody = true;
+   // buttonOne.enableBody = true;
     var trapButtonOne = buttonOne.create(990, 2380, 'button');
     buttonOne.scale.setTo(.5,.5);
-    trapButtonOne.body.immovable = true;
+    //trapButtonOne.body.immovable = true;
 
 
     //trap two of the map
