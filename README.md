@@ -1,5 +1,10 @@
 # Pit-race
-V1.1: Allows multiple players to join a server and play through the map. Completing the level causes you to restart so you can try again  
+V1.1: Allows multiple players to join a server and play through the map. Completing the level causes you to restart so you can try again   
+**Controls**:  
+> Arrow keys to move  
+'R' key to force reset your character  
+'T' key to activate a trap when you are next to the button  
+Collecting the star grants the ability to double jump  
  
 **Link to demo**: https://pitrace-demo.herokuapp.com/
 
