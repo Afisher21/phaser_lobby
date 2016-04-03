@@ -8,8 +8,7 @@ Collecting the star grants the ability to double jump
  
 **Link to demo**: https://pitrace-demo.herokuapp.com/  
 **Instructions to run locally:**  
-> Download the source code from this repository
-
+> Download the source code from this repository  
 In command prompt navigate to the source code  
 Type "npm install"  
 After this completes, navigate to the folder **_backend_**  
