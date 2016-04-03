@@ -586,8 +586,10 @@ function touchFlag(player, flag){
 }
 function resetPlayer (player, hazard){
     function innerReset(){
-        player.kill();
-        player.reset(playerStartX, playerStartY);
+        player.body.x = playerStartX;
+        player.body.y = playerStartY;
+        //player.kill();
+        //player.reset(playerStartX, playerStartY);
         console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
     }
     innerReset();
