@@ -13,6 +13,7 @@ function preload() {
     game.load.image('trapGun', 'assets/trapGun.png');
     game.load.image('laser', 'assets/laser.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.audio('music', 'assets/jumper.mp3');
 
 }
 
@@ -25,6 +26,9 @@ var interact_key;
 var doubleJump;
 var playerStartX;
 var playerStartY;
+
+//music
+var music;
 
 // scale/camera
 var worldScale=1;
@@ -63,6 +67,10 @@ function create() {
     //  A simple background for our game
     var sky = game.add.sprite(0, 0, 'sky');
     sky.scale.setTo(4, 4);
+
+    music = game.add.audio('music');
+    music.loop = true;
+    music.play();
     
 
 
