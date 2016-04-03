@@ -3,7 +3,7 @@ V1.1: Allows multiple players to join a server and play through the map. Complet
  
 **Link to demo**: https://pitrace-demo.herokuapp.com/
 
-#Plans for future Updates:  
+####Plans for future Updates:  
 **Timer:**  
 - [ ] Allow people to compare how quickly they can finish a level  
 
