@@ -272,7 +272,7 @@ function create() {
     trapButtonThree.body.immovable = true;
     trapButtonThree.anchor.setTo(.5,.5);
     trapButtonThree.scale.x *= -1;
-    var trapGun = buttonTwo.create(3860, 2150, 'trapGun');
+    var trapGun = buttonThree.create(3860, 2150, 'trapGun');
     trapGun.scale.setTo(2,2);
     trapGun.body.immovable = true;
     trapGun.anchor.setTo(.5,.5);
