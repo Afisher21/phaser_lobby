@@ -245,18 +245,23 @@ function create() {
 
     //trap one of the map
     buttonOne = game.add.group();
+    buttonOne.enableBody = true;
     var trapButtonOne = buttonOne.create(990, 2380, 'button');
     buttonOne.scale.setTo(.5,.5);
+    trapButtonOne.body.immovable = true;
 
 
     //trap two of the map
     buttonTwo = game.add.group();
+    buttonTwo.enableBody = true;
     var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
     buttonTwo.scale.setTo(.5,.5);
+    trapButtonTwo.body.immovable = true;
     trapButtonTwo.anchor.setTo(.5,.5);
     trapButtonTwo.scale.x *= -1;
     var trapGun = buttonTwo.create(1345, 2010, 'trapGun');
     trapGun.scale.setTo(2,2);
+    trapGun.body.immovable = true;
     trapTwoLaser = game.add.group();
     trapTwoLaser.enableBody = true;
     var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
