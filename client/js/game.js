@@ -4,7 +4,7 @@ function preload() {
     //http://opengameart.org/content/bevouliin-free-game-obstacle-spikes
     // game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
     game.time.advancedTiming = true;
-    game.load.image('diamond','assets/diamond.png');
+    game.load.image('flag','assets/flag.png');
     game.load.image('spike','assets/spike D.png');
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform2.png');
@@ -213,7 +213,7 @@ function create() {
   // Add finish line flag
      flags = game.add.group();
      flags.enableBody = true;
-     var finishFlag = flags.create(1800,450,'diamond');
+     var finishFlag = flags.create(1800,423,'flag');
      finishFlag.body.immovable = true;
 
    // Add a Hazard
