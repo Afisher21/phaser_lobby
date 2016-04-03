@@ -593,7 +593,7 @@ function resetPlayer (player, hazard){
         console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
     }
     innerReset();
-    //game.time.events.add(1500, innerReset, this);
+    game.time.events.add(1500, innerReset, this);
 }
 
 function activateTrapOneContainer (player, trapButtonOne){
