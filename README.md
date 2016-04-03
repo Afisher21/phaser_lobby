@@ -1,8 +1,7 @@
 # Pit-race
 V1.1: Allows multiple players to join a server and play through the map. Completing the level causes you to restart so you can try again  
  
-**Link to demo**
-  > https://pitrace-demo.herokuapp.com/
+**Link to demo**: https://pitrace-demo.herokuapp.com/
 
 #Plans for future Updates:  
 **Timer:**  
