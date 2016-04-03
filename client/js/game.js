@@ -188,7 +188,7 @@ function create() {
     ledge.scale.setTo(1.5,1);
 
     // The player and its
-    playerStartX = 32; //original : 32
+    playerStartX = game.world.width - 1968; //original : 32
     playerStartY = game.world.height - 150; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
 
