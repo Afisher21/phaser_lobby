@@ -37,6 +37,7 @@ var worldScale=1;
 
 // interactable
 var hazards;
+var flags;
 var stars;
 var trapOneSpikes;
 var trapTwoLaser;
@@ -208,8 +209,14 @@ function create() {
 
     // Create array of other players
     players = [];
+  
+  // Add finish line flag
+     flags = game.add.group();
+     flags.enableBody = true;
+     var finishFlag = flags.create(1800,450,'diamond');
+     finishFlag.body.immovable = true;
 
-    // Add a Hazard
+   // Add a Hazard
     hazards = game.add.group();
     hazards.enableBody=true;
     for(var i=0;i<5;i++){
@@ -307,10 +314,6 @@ function create() {
         spikes.scale.setTo(.07,.07);
         spikes.body.immovable = true;
     }
-
-
-    //end of race
-    hazards.create(1800,450,'diamond');
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -519,6 +522,7 @@ function update() {
     game.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
     game.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
     game.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
+    game.physics.arcade.overlap(player, flags, touchFlag, null, this);
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
 
@@ -577,7 +581,9 @@ function collectStar (player, star) {
     doubleJump += 1;
 
 }
-
+function touchFlag(player, flag){
+   resetPlayer(player,flag);
+}
 function resetPlayer (player, hazard){
     player.kill();
     game.time.events.add(1500, reset, this);
