@@ -595,6 +595,7 @@ function resetPlayer (player, hazard){
 function reset(){
     player.kill();
     player.reset(playerStartX, playerStartY);
+    console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
 }
 
 function activateTrapOneContainer (player, trapButtonOne){
