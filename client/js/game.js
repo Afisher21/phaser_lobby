@@ -585,17 +585,13 @@ function touchFlag(player, flag){
    resetPlayer(player,flag);
 }
 function resetPlayer (player, hazard){
+    function innerReset(){
+        player.kill();
+        player.reset(playerStartX, playerStartY);
+        console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
+    }
     player.kill();
-    game.time.events.add(1500, reset, this);
-
-    //player.reset(32, game.world.height - 150);
-
-}
-
-function reset(){
-    player.kill();
-    player.reset(playerStartX, playerStartY);
-    console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
+    game.time.events.add(1500, innerReset, this);
 }
 
 function activateTrapOneContainer (player, trapButtonOne){
