@@ -12,7 +12,7 @@ function preload() {
     game.load.image('button', 'assets/button.png');
     game.load.image('trapGun', 'assets/trapGun.png');
     game.load.image('laser', 'assets/laser.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     //game.load.audio('music', 'assets/jumper.mp3');
     game.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
     game.renderer.renderSession.roundPixels = true;
@@ -440,7 +440,7 @@ function onNewPlayer (data) {
 // Move player
 function onMovePlayer (data) {
   var movePlayer = playerById(data.id);
-   var oldX = movePlayer.player.x;
+   //var oldX = movePlayer.player.x;
   // Player not found
   if (!movePlayer) {
     console.log('Player not found: ', data.id);
@@ -448,7 +448,7 @@ function onMovePlayer (data) {
   }
 
   // Update player position?
-  if(data.x>oldX){
+  /*if(data.x>oldX){
       // animate right
       //movePlayer.player.animations.play('right');
   }
@@ -456,6 +456,7 @@ function onMovePlayer (data) {
      // animate left
     // movePlayer.player.animations.play('left');
   }
+  */
   movePlayer.player.x = data.x
   movePlayer.player.y = data.y
 }
