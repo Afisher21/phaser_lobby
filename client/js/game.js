@@ -218,7 +218,7 @@ function create() {
 
    // Add a Hazard
     hazards = game.add.group();
-    hazards.enableBody=true;
+    //hazards.enableBody=true;
     for(var i=0;i<5;i++){
 
         var hazard = hazards.create(385+i*10, game.world.height-541, 'spike');
