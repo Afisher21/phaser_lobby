@@ -592,7 +592,6 @@ function resetPlayer (player, hazard){
         //player.reset(playerStartX, playerStartY);
         console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
     }
-    innerReset();
     game.time.events.add(1500, innerReset, this);
 }
 
