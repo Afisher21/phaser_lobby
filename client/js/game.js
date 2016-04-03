@@ -1,20 +1,22 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
-   //http://opengameart.org/content/bevouliin-free-game-obstacle-spikes
-  // game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
+    //http://opengameart.org/content/bevouliin-free-game-obstacle-spikes
+    // game.load.bitmapFont('desyrel', '/assets/fonts/desyrel.png', '/assets/fonts/desyrel.xml');
     game.time.advancedTiming = true;
-   game.load.image('diamond','assets/diamond.png');
+    game.load.image('diamond','assets/diamond.png');
     game.load.image('spike','assets/spike D.png');
     game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
+    game.load.image('ground', 'assets/platform2.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('button', 'assets/button.png');
     game.load.image('trapGun', 'assets/trapGun.png');
     game.load.image('laser', 'assets/laser.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-    game.load.audio('music', 'assets/jumper.mp3');
-
+    //game.load.audio('music', 'assets/jumper.mp3');
+    game.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
+    game.renderer.renderSession.roundPixels = true;
+    Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
 }
 
 // Game
@@ -68,10 +70,9 @@ function create() {
     var sky = game.add.sprite(0, 0, 'sky');
     sky.scale.setTo(4, 4);
 
-    music = game.add.audio('music');
-    music.loop = true;
-    music.play();
-    
+    // music = game.add.audio('music');
+    // music.loop = true;
+    // music.play();
 
 
     //  The platforms group contains the ground and the ledges we can jump on
@@ -95,7 +96,7 @@ function create() {
 
     // ledge = platforms.create(-150, 250, 'ground');
     // ledge.body.immovable = true;
-    
+
     var ledge = platforms.create(350,game.world.height-150, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(.3,1);
@@ -185,7 +186,7 @@ function create() {
     ledge.body.immovable = true;
     ledge.scale.setTo(1.5,1);
 
-    // The player and its 
+    // The player and its
     playerStartX = 32; //original : 32
     playerStartY = game.world.height - 150; //original : 150
     player = game.add.sprite(playerStartX, playerStartY, 'dude');
@@ -201,7 +202,7 @@ function create() {
     //  Our two animations, walking left and right.
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
-    
+
     // Focus camera on player
     game.camera.focusOnXY(0,0);
 
@@ -384,7 +385,7 @@ var setEventHandlers = function () {
 
   // Player removed message received
   socket.on('remove player', onRemovePlayer);
-  
+
   // check traps
   socket.on('trap activated', onActivateTrap);
 }
@@ -503,9 +504,9 @@ function update() {
     //  Collide the player and the stars with the platforms
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(stars, platforms);
-        game.physics.arcade.collide(hazards, stars);   
+        game.physics.arcade.collide(hazards, stars);
         //game.physics.arcade.collide(player,buttons);
-        //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);   
+        //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);
       // players[i].update();
     //}
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
@@ -546,7 +547,7 @@ function update() {
 
         player.frame = 4;
     }
-    
+
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.touching.down)
     {
@@ -568,7 +569,7 @@ function render(){
 }
 
 function collectStar (player, star) {
-    
+
     // Removes the star from the screen
     star.kill();
 
@@ -595,7 +596,7 @@ function activateTrapOneContainer (player, trapButtonOne){
         //trapButtonOne.kill();
 		socket.emit('trap activated',{ trapNumb: 1 });
       activateTrapOne();
-    }    
+    }
 }
 function activateTrapOne(){
     trapOneSpikes.setAll('y', 1288);
@@ -614,7 +615,7 @@ function activateTrapTwoContainer (player, trapButtonTwo){
         //game.time.events.add(3000, resetTrapOne, this);
         socket.emit('trap activated',{ trapNumb: 2 });
         activateTrapTwo();
-    }   
+    }
 }
 function activateTrapTwo(){
     trapTwoLaser.setAll('x', 700);
@@ -633,7 +634,7 @@ function activateTrapThreeContainer (player, trapButtonThree){
         //game.time.events.add(3000, resetTrapOne, this);
         socket.emit('trap activated',{ trapNumb: 3 });
         activateTrapThree();
-    }   
+    }
 }
 function activateTrapThree(){
     trapThreeLaser.setAll('x', 1928);
