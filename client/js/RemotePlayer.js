@@ -20,7 +20,7 @@ var RemotePlayer = function(index, game, player, startX, startY) {
     
     this.lastPosition = {x: startX, y: startY};
 }
-RemotePlayer.prototype.update = function () {
+RemotePlayer.update = function () {
   if (this.player.x < this.lastPosition.x) {
     this.player.play('left')
   }
