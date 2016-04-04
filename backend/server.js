@@ -13,6 +13,7 @@ var port = process.env.PORT || 10003
 ************************************************ */
 var socket	// Socket controller
 var players	// Array of connected players
+var playerColorMax
 
 /* ************************************************
 ** GAME INITIALISATION
@@ -36,6 +37,9 @@ function init () {
   // Create an empty array to store players
   players = []
 
+  // Initialize playerColors to amount defined
+  playerColorMax = 1;
+  
   // Attach Socket.IO to server
   socket = io.listen(server)
 
@@ -92,17 +96,17 @@ function onClientDisconnect () {
 // New player has joined
 function onNewPlayer (data) {
   // Create a new player
-  var newPlayer = new Player(data.x, data.y)
+  var newPlayer = new Player(data.x, data.y, (players.length % playerColorMax))
   newPlayer.id = this.id
 
   // Broadcast new player to connected socket clients
-  this.broadcast.emit('new player', {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()})
+  this.broadcast.emit('new player', {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), color: newPlayer.getColor()})
 
   // Send existing players to the new player
   var i, existingPlayer
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i]
-    this.emit('new player', {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()})
+    this.emit('new player', {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), color: newPlayer.getColor()})
   }
 
   // Add new player to the players array

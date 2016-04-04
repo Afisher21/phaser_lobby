@@ -15,6 +15,8 @@ function preload() {
     //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     //game.load.audio('music', 'assets/jumper.mp3');
     game.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
+    game.load.spritesheet('dude0', 'assets/dude2.png', 19, 27);
+    game.load.spritesheet('dude1', 'assets/dude2.png', 19, 27);
     game.renderer.renderSession.roundPixels = true;
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
 }
@@ -437,7 +439,7 @@ function onNewPlayer (data) {
   }
 
   // Add new player to the remote players array
-  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY));
+  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY, data.color));
 }
 
 // Move player

@@ -1,10 +1,10 @@
-var RemotePlayer = function(index, game, player, startX, startY) {
+var RemotePlayer = function(index, game, player, startX, startY, color) {
     // possibly accept cursors as another argument?
   this.game = game;
   this.player = player;
 
   // The player and its settings
-    this.player = game.add.sprite(startX, startY, 'dude');
+    this.player = game.add.sprite(startX, startY, 'dude' + color.toString());
     this.player.name = index.toString();
 
     //  We need to enable physics on the player
