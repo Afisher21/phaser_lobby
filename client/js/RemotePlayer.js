@@ -20,19 +20,19 @@ var RemotePlayer = function(index, game, player, startX, startY) {
     
     this.lastPosition = {x: startX, y: startY};
 }
-RemotePlayer.update = function () {
-  if (this.player.x < this.lastPosition.x) {
-    this.player.play('left')
+function RPUpdate(socketPlayer) {
+  if (socketPlayer.player.x < socketPlayer.lastPosition.x) {
+    socketPlayer.player.play('left')
   }
-  else if(this.player.x > this.lastPosition.x){
-     this.player.play('right')
+  else if(socketPlayer.player.x > socketPlayer.lastPosition.x){
+     socketPlayer.player.play('right')
   }
   else{
-    this.player.play('stop')
+    socketPlayer.player.play('stop')
   }
 
-  this.lastPosition.x = this.player.x
-  this.lastPosition.y = this.player.y
+  socketPlayer.lastPosition.x = socketPlayer.player.x
+  socketPlayer.lastPosition.y = socketPlayer.player.y
 }
 
 window.RemotePlayer = RemotePlayer

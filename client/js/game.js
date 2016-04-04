@@ -511,7 +511,7 @@ function update() {
         //game.physics.arcade.collide(player,buttons);
         //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);
         for(var i =0; i< players.length; i++){
-          players[i].update();
+          RPUpdate(players[i]);
         }
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
