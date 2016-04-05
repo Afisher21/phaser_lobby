@@ -247,17 +247,17 @@ function create() {
 
     //trap one of the map
     buttonOne = game.add.group();
+    buttonOne.scale.setTo(.5,.5);
     buttonOne.enableBody = true;
     var trapButtonOne = buttonOne.create(990, 2380, 'button');
-    buttonOne.scale.setTo(.5,.5);
     trapButtonOne.body.immovable = true;
 
 
     //trap two of the map
     buttonTwo = game.add.group();
+    buttonTwo.scale.setTo(.5,.5);
     buttonTwo.enableBody = true;
     var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
-    buttonTwo.scale.setTo(.5,.5);
     trapButtonTwo.body.immovable = true;
     trapButtonTwo.anchor.setTo(.5,.5);
     trapButtonTwo.scale.x *= -1;
@@ -265,7 +265,7 @@ function create() {
     trapGun.scale.setTo(2,2);
     trapGun.body.immovable = true;
     trapTwoLaser = game.add.group();
-    trapTwoLaser.enableBody = true;
+    //trapTwoLaser.enableBody = true;
     var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
     laserTwo.scale.setTo(1,6);
     laserTwo.body.immovable = true;
@@ -275,9 +275,9 @@ function create() {
 
     //trap three of the map
     buttonThree = game.add.group();
+    buttonThree.scale.setTo(.5,.5);
     buttonThree.enableBody = true;
     var trapButtonThree = buttonThree.create(3885, 2050, 'button');
-    buttonThree.scale.setTo(.5,.5);
     trapButtonThree.body.immovable = true;
     trapButtonThree.anchor.setTo(.5,.5);
     trapButtonThree.scale.x *= -1;
@@ -287,7 +287,7 @@ function create() {
     trapGun.anchor.setTo(.5,.5);
     trapGun.scale.y *= -1;
     trapThreeLaser = game.add.group();
-    trapThreeLaser.enableBody = true;
+    //trapThreeLaser.enableBody = true;
     var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
     laserThree.scale.setTo(1,5);
     laserThree.body.immovable = true;
