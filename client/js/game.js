@@ -268,7 +268,7 @@ function create() {
     //trapTwoLaser.enableBody = true;
     var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
     laserTwo.scale.setTo(1,6);
-    laserTwo.body.immovable = true;
+    //laserTwo.body.immovable = true;
 
 
 
@@ -290,7 +290,7 @@ function create() {
     //trapThreeLaser.enableBody = true;
     var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
     laserThree.scale.setTo(1,5);
-    laserThree.body.immovable = true;
+    //laserThree.body.immovable = true;
     laserThree.anchor.setTo(.5,.5);
     laserThree.scale.y *= -1;
     //laserThree.visible = false;
