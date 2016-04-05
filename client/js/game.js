@@ -15,8 +15,6 @@ function preload() {
     //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     //game.load.audio('music', 'assets/jumper.mp3');
     game.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
-    game.load.spritesheet('dude0', 'assets/dude2.png', 19, 27);
-    game.load.spritesheet('dude1', 'assets/dude2.png', 19, 27);
     game.renderer.renderSession.roundPixels = true;
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
 }
@@ -247,17 +245,17 @@ function create() {
 
     //trap one of the map
     buttonOne = game.add.group();
-    buttonOne.scale.setTo(.5,.5);
     buttonOne.enableBody = true;
     var trapButtonOne = buttonOne.create(990, 2380, 'button');
+    buttonOne.scale.setTo(.5,.5);
     trapButtonOne.body.immovable = true;
 
 
     //trap two of the map
     buttonTwo = game.add.group();
-    buttonTwo.scale.setTo(.5,.5);
     buttonTwo.enableBody = true;
     var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
+    buttonTwo.scale.setTo(.5,.5);
     trapButtonTwo.body.immovable = true;
     trapButtonTwo.anchor.setTo(.5,.5);
     trapButtonTwo.scale.x *= -1;
@@ -265,19 +263,19 @@ function create() {
     trapGun.scale.setTo(2,2);
     trapGun.body.immovable = true;
     trapTwoLaser = game.add.group();
-    //trapTwoLaser.enableBody = true;
+    trapTwoLaser.enableBody = true;
     var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
     laserTwo.scale.setTo(1,6);
-    //laserTwo.body.immovable = true;
+    laserTwo.body.immovable = true;
 
 
 
 
     //trap three of the map
     buttonThree = game.add.group();
-    buttonThree.scale.setTo(.5,.5);
     buttonThree.enableBody = true;
     var trapButtonThree = buttonThree.create(3885, 2050, 'button');
+    buttonThree.scale.setTo(.5,.5);
     trapButtonThree.body.immovable = true;
     trapButtonThree.anchor.setTo(.5,.5);
     trapButtonThree.scale.x *= -1;
@@ -287,10 +285,10 @@ function create() {
     trapGun.anchor.setTo(.5,.5);
     trapGun.scale.y *= -1;
     trapThreeLaser = game.add.group();
-    //trapThreeLaser.enableBody = true;
+    trapThreeLaser.enableBody = true;
     var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
     laserThree.scale.setTo(1,5);
-    //laserThree.body.immovable = true;
+    laserThree.body.immovable = true;
     laserThree.anchor.setTo(.5,.5);
     laserThree.scale.y *= -1;
     //laserThree.visible = false;
@@ -439,7 +437,7 @@ function onNewPlayer (data) {
   }
 
   // Add new player to the remote players array
-  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY, data.color));
+  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY));
 }
 
 // Move player
@@ -452,16 +450,6 @@ function onMovePlayer (data) {
     return;
   }
 
-  // Update player position?
-  /*if(data.x>oldX){
-      // animate right
-      //movePlayer.player.animations.play('right');
-  }
-  if(data.x<oldX){
-     // animate left
-    // movePlayer.player.animations.play('left');
-  }
-  */
   movePlayer.player.x = data.x
   movePlayer.player.y = data.y
 }
@@ -506,15 +494,15 @@ function onRemovePlayer (data) {
 
 function update() {
     //updateTimer();
+    //for(var i =0; i< players.length; i++){
     //  Collide the player and the stars with the platforms
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(stars, platforms);
         game.physics.arcade.collide(hazards, stars);
         //game.physics.arcade.collide(player,buttons);
         //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);
-        //for(var i =0; i< players.length; i++){
-        //  RPUpdate(players[i]);
-        //}
+      // players[i].update();
+    //}
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
     game.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
@@ -588,12 +576,12 @@ function touchFlag(player, flag){
 }
 function resetPlayer (player, hazard){
     function innerReset(){
-        //player.body.x = playerStartX;
-        //player.body.y = playerStartY;
-        player.reset(playerStartX, playerStartY);
+        player.body.x = playerStartX;
+        player.body.y = playerStartY;
+        //player.kill();
+        //player.reset(playerStartX, playerStartY);
         console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
     }
-    player.kill();
     game.time.events.add(1500, innerReset, this);
 }
 
