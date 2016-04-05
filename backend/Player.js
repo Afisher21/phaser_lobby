@@ -1,6 +1,7 @@
 /* ************************************************
 ** GAME PLAYER CLASS
 ************************************************ */
+// Used for keeping track of where the various client characters are located
 var Player = function (startX, startY, startColor) {
   var x = startX
   var y = startY
