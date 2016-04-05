@@ -437,7 +437,7 @@ function onNewPlayer (data) {
   }
 
   // Add new player to the remote players array
-  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY));
+  players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY, data.color));
 }
 
 // Move player
