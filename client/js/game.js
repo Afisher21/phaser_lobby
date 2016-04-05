@@ -15,6 +15,7 @@ function preload() {
     //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     //game.load.audio('music', 'assets/jumper.mp3');
     game.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
+    game.load.spritesheet('dude0', 'assets/dude2.png', 19, 27);
     game.renderer.renderSession.roundPixels = true;
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas)
 }
