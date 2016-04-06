@@ -9,10 +9,10 @@ pRace.Game.prototype = {
         doubleJump = -1;
     
         //  We're going to be using physics, so enable the Arcade Physics system
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-       game.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
+        this.physics.startSystem(Phaser.Physics.ARCADE);
+       this.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
         //  A simple background for our game
-        var sky = game.add.sprite(0, 0, 'sky');
+        var sky = this.add.sprite(0, 0, 'sky');
         sky.scale.setTo(4, 4);
     
         // music = game.add.audio('music');
@@ -21,13 +21,13 @@ pRace.Game.prototype = {
     
     
         //  The platforms group contains the ground and the ledges we can jump on
-        platforms = game.add.group();
+        platforms = this.add.group();
     
         //  We will enable physics for any object that is created in this group
         platforms.enableBody = true;
     
         // Here we create the ground.
-        var ground = platforms.create(0, game.world.height - 64, 'ground');
+        var ground = platforms.create(0, this.world.height - 64, 'ground');
     
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
         ground.scale.setTo(6, 2);
@@ -42,102 +42,102 @@ pRace.Game.prototype = {
         // ledge = platforms.create(-150, 250, 'ground');
         // ledge.body.immovable = true;
     
-        var ledge = platforms.create(350,game.world.height-150, 'ground');
+        var ledge = platforms.create(350,this.world.height-150, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(550,game.world.height-240, 'ground');
+        ledge = platforms.create(550,this.world.height-240, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(350,game.world.height-330, 'ground');
+        ledge = platforms.create(350,this.world.height-330, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(550,game.world.height-420, 'ground');
+        ledge = platforms.create(550,this.world.height-420, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(120,game.world.height-510, 'ground');
+        ledge = platforms.create(120,this.world.height-510, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.9,1);
     
-        ledge = platforms.create(0,game.world.height-600, 'ground');
+        ledge = platforms.create(0,this.world.height-600, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.1,1);
     
-        ledge = platforms.create(120,game.world.height-690, 'ground');
+        ledge = platforms.create(120,this.world.height-690, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(1.5,1);
     
-        ledge = platforms.create(120,game.world.height-780, 'ground');
+        ledge = platforms.create(120,this.world.height-780, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(1.2,1);
     
         //ahead trap ledge
-        ledge = platforms.create(650,game.world.height-870, 'ground');
+        ledge = platforms.create(650,this.world.height-870, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(920,game.world.height-600, 'ground');
+        ledge = platforms.create(920,this.world.height-600, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1220,game.world.height-510, 'ground');
+        ledge = platforms.create(1220,this.world.height-510, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1650,game.world.height-510, 'ground');
+        ledge = platforms.create(1650,this.world.height-510, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1850,game.world.height-600, 'ground');
+        ledge = platforms.create(1850,this.world.height-600, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.1,1);
     
-        ledge = platforms.create(1960,game.world.height-690, 'ground');
+        ledge = platforms.create(1960,this.world.height-690, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.1,1);
     
-        ledge = platforms.create(1850,game.world.height-780, 'ground');
+        ledge = platforms.create(1850,this.world.height-780, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.1,1);
     
-        ledge = platforms.create(1650,game.world.height-870, 'ground');
+        ledge = platforms.create(1650,this.world.height-870, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1850,game.world.height-960, 'ground');
+        ledge = platforms.create(1850,this.world.height-960, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1250,game.world.height-960, 'ground');
+        ledge = platforms.create(1250,this.world.height-960, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(850,game.world.height-1100, 'ground');
+        ledge = platforms.create(850,this.world.height-1100, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(450,game.world.height-1240, 'ground');
+        ledge = platforms.create(450,this.world.height-1240, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(850,game.world.height-1380, 'ground');
+        ledge = platforms.create(850,this.world.height-1380, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(.3,1);
     
-        ledge = platforms.create(1250,game.world.height-1520, 'ground');
+        ledge = platforms.create(1250,this.world.height-1520, 'ground');
         ledge.body.immovable = true;
         ledge.scale.setTo(1.5,1);
     
         // The player and its
-        playerStartX = game.world.width - 1968; //original : 32
-        playerStartY = game.world.height - 150; //original : 150
-        player = game.add.sprite(playerStartX, playerStartY, 'dude');
+        playerStartX = this.world.width - 1968; //original : 32
+        playerStartY = this.world.height - 150; //original : 150
+        player = this.add.sprite(playerStartX, playerStartY, 'dude');
     
         //  We need to enable physics on the player
-        game.physics.arcade.enable(player);
+        this.physics.arcade.enable(player);
     
         //  Player physics properties. Give the little guy a slight bounce.
         //    player.body.bounce.y = 0.2;
@@ -149,30 +149,30 @@ pRace.Game.prototype = {
         player.animations.add('right', [5, 6, 7, 8], 10, true);
     
         // Focus camera on player
-        game.camera.focusOnXY(0,0);
+        this.camera.focusOnXY(0,0);
     
         // Create array of other players
         players = [];
       
       // Add finish line flag
-         flags = game.add.group();
+         flags = this.add.group();
          flags.enableBody = true;
          var finishFlag = flags.create(1800,423,'flag');
          finishFlag.body.immovable = true;
     
        // Add a Hazard
-        hazards = game.add.group();
+        hazards = this.add.group();
         hazards.enableBody=true;
         for(var i=0;i<5;i++){
     
-            var hazard = hazards.create(385+i*10, game.world.height-541, 'spike');
+            var hazard = hazards.create(385+i*10, this.world.height-541, 'spike');
             hazard.scale.setTo(.1,.1);
             hazard.body.immovable = true;
         }
     
         for(var i=0;i<5;i++){
     
-            hazard = hazards.create(275+i*10, game.world.height-541, 'spike');
+            hazard = hazards.create(275+i*10, this.world.height-541, 'spike');
             hazard.scale.setTo(.1,.1);
             //hazard.angle += 180;
             hazard.body.immovable = true;
@@ -180,7 +180,7 @@ pRace.Game.prototype = {
     
         for(var i=0;i<5;i++){
     
-            hazard = hazards.create(165+i*10, game.world.height-541, 'spike');
+            hazard = hazards.create(165+i*10, this.world.height-541, 'spike');
             hazard.scale.setTo(.1,.1);
             //hazard.angle += 180;
             hazard.body.immovable = true;
@@ -188,7 +188,7 @@ pRace.Game.prototype = {
     
     
         //trap one of the map
-        buttonOne = game.add.group();
+        buttonOne = this.add.group();
         buttonOne.enableBody = true;
         var trapButtonOne = buttonOne.create(990, 2380, 'button');
         buttonOne.scale.setTo(.5,.5);
@@ -196,7 +196,7 @@ pRace.Game.prototype = {
     
     
         //trap two of the map
-        buttonTwo = game.add.group();
+        buttonTwo = this.add.group();
         buttonTwo.enableBody = true;
         var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
         buttonTwo.scale.setTo(.5,.5);
@@ -206,7 +206,7 @@ pRace.Game.prototype = {
         var trapGun = buttonTwo.create(1345, 2010, 'trapGun');
         trapGun.scale.setTo(2,2);
         trapGun.body.immovable = true;
-        trapTwoLaser = game.add.group();
+        trapTwoLaser = this.add.group();
         trapTwoLaser.enableBody = true;
         var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
         laserTwo.scale.setTo(1,6);
@@ -216,7 +216,7 @@ pRace.Game.prototype = {
     
     
         //trap three of the map
-        buttonThree = game.add.group();
+        buttonThree = this.add.group();
         buttonThree.enableBody = true;
         var trapButtonThree = buttonThree.create(3885, 2050, 'button');
         buttonThree.scale.setTo(.5,.5);
@@ -228,7 +228,7 @@ pRace.Game.prototype = {
         trapGun.body.immovable = true;
         trapGun.anchor.setTo(.5,.5);
         trapGun.scale.y *= -1;
-        trapThreeLaser = game.add.group();
+        trapThreeLaser = this.add.group();
         trapThreeLaser.enableBody = true;
         var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
         laserThree.scale.setTo(1,5);
@@ -238,7 +238,7 @@ pRace.Game.prototype = {
         //laserThree.visible = false;
     
     
-        trapOneSpikes = game.add.group();
+        trapOneSpikes = this.add.group();
         trapOneSpikes.enableBody = true;
         for(var i=0;i<6;i++){
     
@@ -260,7 +260,7 @@ pRace.Game.prototype = {
         }
     
         //  Finally some stars to collect
-        stars = game.add.group();
+        stars = this.add.group();
     
         //  We will enable physics for any star that is created in this group
         stars.enableBody = true;
@@ -287,10 +287,10 @@ pRace.Game.prototype = {
             //  This just gives each star a slightly random bounce value
             star.body.bounce.y = 0.7 + Math.random() * 0.2;
     
-       // timer = game.add.bitmapText(250, 250, 'desyrel', '00:00:00', 20);
+       // timer = this.add.bitmapText(250, 250, 'desyrel', '00:00:00', 20);
         //  Our controls.
-        game.world.scale.set(worldScale);
-        game.world.bringToTop(player);
+        this.world.scale.set(worldScale);
+        this.world.bringToTop(player);
     
         /*
              Camera follow options:
@@ -299,10 +299,10 @@ pRace.Game.prototype = {
           FOLLOW_TOPDOWN
           FOLLOW_TOPDOWN_TIGHT
         */
-        game.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
-        cursors = game.input.keyboard.createCursorKeys();
-        reset_key = game.input.keyboard.addKey(Phaser.Keyboard.R);
-        interact_key = game.input.keyboard.addKey(Phaser.Keyboard.T);
+        this.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
+        cursors = this.input.keyboard.createCursorKeys();
+        reset_key = this.input.keyboard.addKey(Phaser.Keyboard.R);
+        interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
         setEventHandlers();
     },
     // socket io stuff
@@ -370,7 +370,7 @@ pRace.Game.prototype = {
       }
     
       // Add new player to the remote players array
-      players.push(new RemotePlayer(data.id, game, player, playerStartX, playerStartY, data.color));
+      players.push(new RemotePlayer(data.id, this, player, playerStartX, playerStartY, data.color));
     },
     
     // Move player
@@ -407,23 +407,23 @@ pRace.Game.prototype = {
         //updateTimer();
         //for(var i =0; i< players.length; i++){
         //  Collide the player and the stars with the platforms
-            game.physics.arcade.collide(player, platforms);
-            game.physics.arcade.collide(stars, platforms);
-            game.physics.arcade.collide(hazards, stars);
-            //game.physics.arcade.collide(player,buttons);
-            //game.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);
+            this.physics.arcade.collide(player, platforms);
+            this.physics.arcade.collide(stars, platforms);
+            this.physics.arcade.collide(hazards, stars);
+            //this.physics.arcade.collide(player,buttons);
+            //this.physics.arcade.collide(player, buttonOne, activateTrapOneContainer, null, this);
           // players[i].update();
         //}
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-        game.physics.arcade.overlap(player, stars, collectStar, null, this);
-        game.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
-        game.physics.arcade.overlap(player, trapOneSpikes, resetPlayer, null, this);
-        game.physics.arcade.overlap(player, trapTwoLaser, resetPlayer, null, this);
-        game.physics.arcade.overlap(player, trapThreeLaser, resetPlayer, null, this);
-        game.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
-        game.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
-        game.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
-        game.physics.arcade.overlap(player, flags, touchFlag, null, this);
+        this.physics.arcade.overlap(player, stars, collectStar, null, this);
+        this.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapOneSpikes, resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapTwoLaser, resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapThreeLaser, resetPlayer, null, this);
+        this.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
+        this.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
+        this.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
+        this.physics.arcade.overlap(player, flags, touchFlag, null, this);
         //  Reset the players velocity (movement)
         player.body.velocity.x = 0;
     
@@ -471,7 +471,7 @@ pRace.Game.prototype = {
         socket.emit('move player',{ x: player.x, y: player.y });
     },
     render: function() {
-        game.debug.text(game.time.fps,2,14, "#00ff00");
+        this.debug.text(this.time.fps,2,14, "#00ff00");
     },
     collectStar: function(player, star) {
     
@@ -492,7 +492,7 @@ pRace.Game.prototype = {
             console.log("Player sent to: (" + playerStartX + "," + playerStartY +") ");
         }
         player.kill();
-        game.time.events.add(1500, innerReset, this);
+        this.time.events.add(1500, innerReset, this);
     },
     activateTrapOneContainer: function(player, trapButtonOne){
         if(interact_key.isDown)
@@ -507,14 +507,14 @@ pRace.Game.prototype = {
        function resetTrapOne (){
           trapOneSpikes.setAll('y', 1312);
        }
-          game.time.events.add(3000, resetTrapOne, this);
+          this.time.events.add(3000, resetTrapOne, this);
     },
     activateTrapTwoContainer: function (player, trapButtonTwo){
         if(interact_key.isDown)
         {
             //trapButtonOne.kill();
             //activateTrapOne();
-            //game.time.events.add(3000, resetTrapOne, this);
+            //this.time.events.add(3000, resetTrapOne, this);
             socket.emit('trap activated',{ trapNumb: 2 });
             activateTrapTwo();
         }
@@ -524,14 +524,14 @@ pRace.Game.prototype = {
         function resetTrapTwo (){
            trapTwoLaser.setAll('x', -100);
         }
-        game.time.events.add(1500, resetTrapTwo, this);
+        this.time.events.add(1500, resetTrapTwo, this);
     },
     activateTrapThreeContainer: function (player, trapButtonThree){
         if(interact_key.isDown)
         {
             //trapButtonOne.kill();
             //activateTrapOne();
-            //game.time.events.add(3000, resetTrapOne, this);
+            //this.time.events.add(3000, resetTrapOne, this);
             socket.emit('trap activated',{ trapNumb: 3 });
             activateTrapThree();
         }
@@ -541,12 +541,12 @@ pRace.Game.prototype = {
        function resetTrapThree (){
            trapThreeLaser.setAll('x', 2050);
        }
-       game.time.events.add(1500, resetTrapThree, this);
+       this.time.events.add(1500, resetTrapThree, this);
     },
     updateTimer: function() {
-        minutes = Math.floor(game.time.time / 60000) % 60;
-        seconds = Math.floor(game.time.time / 1000) % 60;
-        milliseconds = Math.floor(game.time.time) % 100;
+        minutes = Math.floor(this.time.time / 60000) % 60;
+        seconds = Math.floor(this.time.time / 1000) % 60;
+        milliseconds = Math.floor(this.time.time) % 100;
         //If any of the digits becomes a single digit number, pad it with a zero
         if (milliseconds < 10)
                 milliseconds = '0' + milliseconds;
