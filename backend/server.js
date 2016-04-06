@@ -3,7 +3,7 @@ var http = require('http')
 var path = require('path')
 var ecstatic = require('ecstatic')
 var io = require('socket.io')
-/*
+
 var pg = require('pg');
 
 pg.defaults.ssl = true;
@@ -17,7 +17,7 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
       console.log(JSON.stringify(row));
     });
 });
-*/
+
 var Player = require('./Player')
 
 var port = process.env.PORT || 10003
