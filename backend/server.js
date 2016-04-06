@@ -7,8 +7,7 @@ var io = require('socket.io')
 var pg = require('pg');
 
 pg.defaults.ssl = true;
-var process.env.DATABASE_URL = process.env.DATABASE_URL || "postgres://ikmzkluqcvshjh:QYruHgRuFPKk2Qhk4xDgNCbWyN@ec2-54-225-223-40.compute-1.amazonaws.com:5432:/d67eroqetivb2j";
-pg.connect(process.env.DATABASE_URL, function(err, client) {
+pg.connect("process.env.postgres://ikmzkluqcvshjh:QYruHgRuFPKk2Qhk4xDgNCbWyN@ec2-54-225-223-40.compute-1.amazonaws.com:5432/d67eroqetivb2j", function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting schemas...');
 
