@@ -3,10 +3,10 @@ pRace.MainMenu = function(){};
 
 pRace.MainMenu.prototype = {
     create: function(){
-        
-    this.game.add.text(0,50,'This text is on the main menu and can be found in MainMenu.js' , {font: '14px Arial', fill: '#fff'});
-    this.game.add.text(0,90,'Controls: arrow keys to move\n "r" to reset yourself\n "t" to activate traps' , {font: '14px Arial', fill: '#fff'});
-    this.game.add.text(0,190,'Collect the powerstar to gain the ability to double jump. Good luck!' , {font: '14px Arial', fill: '#fff'});
+    this.game.stage.backgroundColor = '#707070';      
+    this.game.add.text(40,50,'This text is on the main menu and can be found in MainMenu.js' , {font: '14px Arial', fill: '#fff'});
+    this.game.add.text(40,90,'Controls: arrow keys to move\n "R" to reset yourself\n "T" to activate traps' , {font: '14px Arial', fill: '#fff'});
+    this.game.add.text(40,190,'Collect the powerstar to gain the ability to double jump. Good luck!' , {font: '14px Arial', fill: '#fff'});
     
     button_join_lobby = this.game.add.button(160, 500, 'Play!', this.join_lobby, this);
     },
