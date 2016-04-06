@@ -11,16 +11,16 @@ pRace.MainMenu.prototype = {
     button_join_lobby = this.game.add.button(160, 500, 'Play!', this.join_lobby, this);
     },
     update: function(){
-        if( pRace_frames == 1){
+        if( pRace_frames === 1){
             this.game.state.start('Game');
         }
-        else if(pRace_frames == 2){
+        else if(pRace_frames === 2){
             this.game.state.start('Instructions');
         }
         
     },
     join_lobby: function(){
-        
+        console.log("join_lobby called");
         pRace_frames = 1;   
     }
 };

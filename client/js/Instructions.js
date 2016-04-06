@@ -11,7 +11,7 @@ pRace.Instructions.prototype = {
         button_back = this.game.add.button(160, 500, 'Back to main menu', this.back, this);
     },
     update: function(){
-        if( pRace_frames == 1){
+        if( pRace_frames === 1){
             this.game.state.start('MainMenu');
         }
         
