@@ -400,7 +400,7 @@ pRace.Game.prototype = {
         cursors = this.input.keyboard.createCursorKeys();
         reset_key = this.input.keyboard.addKey(Phaser.Keyboard.R);
         interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
-        setEventHandlers();
+        setEventHandlers;
     },
     update: function() {
         //updateTimer();
