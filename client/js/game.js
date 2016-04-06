@@ -306,7 +306,7 @@ pRace.Game.prototype = {
         setEventHandlers();
     },
     // socket io stuff
-    setEventHandlers: function () {
+    setEventHandlers: function() {
       // Socket connection successful
       socket.on('connect', onSocketConnected);
     
