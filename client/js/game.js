@@ -2,6 +2,103 @@ var pRace = pRace || {};
 
 pRace.Game = function(){};
 pRace.Game.prototype = {
+    // socket io stuff
+    setEventHandlers: function() {
+      // Socket connection successful
+      socket.on('connect', onSocketConnected);
+    
+      // Socket disconnection
+      socket.on('disconnect', onSocketDisconnect);
+    
+      // New player message received
+      socket.on('new player', onNewPlayer);
+    
+      // Player move message received
+      socket.on('move player', onMovePlayer);
+    
+      // Player removed message received
+      socket.on('remove player', onRemovePlayer);
+    
+      // check traps
+      socket.on('trap activated', onActivateTrap);
+    },
+    // Activate trap
+    onActivateTrap: function(data){
+    	var trap = data.trapNumb;
+    	if (trap === 1){
+    		activateTrapOne();
+    	}
+       if (trap === 2){
+          activateTrapTwo();
+       }
+       if (trap === 3){
+          activateTrapThree();
+       }
+    },
+    
+    // Socket connected for first time
+    onSocketConnected: function() {
+      console.log('Connected to socket server');
+    
+      // Reset players on reconnect
+      players.forEach(function (enemy) {
+        enemy.player.kill();
+      })
+      players = [];
+    
+      // Send local player data to the game server
+      socket.emit('new player', { x: player.x, y: player.y });
+    },
+    
+    // Socket disconnected
+    onSocketDisconnect: function() {
+      console.log('Disconnected from socket server');
+    },
+    
+    // New player
+    onNewPlayer: function(data) {
+      console.log('New player connection in game.js:', data.id);
+    
+      // Avoid possible duplicate players
+      var duplicate = playerById(data.id);
+      if (duplicate) {
+        console.log('Duplicate player!');
+        return;
+      }
+    
+      // Add new player to the remote players array
+      players.push(new RemotePlayer(data.id, this, player, playerStartX, playerStartY, data.color));
+    },
+    
+    // Move player
+    onMovePlayer: function(data) {
+      var movePlayer = playerById(data.id);
+       //var oldX = movePlayer.player.x;
+      // Player not found
+      if (!movePlayer) {
+        console.log('Player not found: ', data.id);
+        return;
+      }
+    
+      movePlayer.player.x = data.x
+      movePlayer.player.y = data.y
+    },
+    
+    // Remove player
+    onRemovePlayer: function(data) {
+      var removePlayer = playerById(data.id)
+    
+      // Player not found
+      if (!removePlayer) {
+        console.log('Player not found: ', data.id)
+        return
+      }
+    
+      removePlayer.player.kill()
+    
+      // Remove player from array
+      players.splice(players.indexOf(removePlayer), 1)
+    },
     create: function() {
         socket = io.connect();
     
@@ -305,104 +402,6 @@ pRace.Game.prototype = {
         interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
         setEventHandlers();
     },
-    // socket io stuff
-    setEventHandlers: function() {
-      // Socket connection successful
-      socket.on('connect', onSocketConnected);
-    
-      // Socket disconnection
-      socket.on('disconnect', onSocketDisconnect);
-    
-      // New player message received
-      socket.on('new player', onNewPlayer);
-    
-      // Player move message received
-      socket.on('move player', onMovePlayer);
-    
-      // Player removed message received
-      socket.on('remove player', onRemovePlayer);
-    
-      // check traps
-      socket.on('trap activated', onActivateTrap);
-    },
-    // Activate trap
-    onActivateTrap: function(data){
-    	var trap = data.trapNumb;
-    	if (trap === 1){
-    		activateTrapOne();
-    	}
-       if (trap === 2){
-          activateTrapTwo();
-       }
-       if (trap === 3){
-          activateTrapThree();
-       }
-    },
-    
-    // Socket connected for first time
-    onSocketConnected: function() {
-      console.log('Connected to socket server');
-    
-      // Reset players on reconnect
-      players.forEach(function (enemy) {
-        enemy.player.kill();
-      })
-      players = [];
-    
-      // Send local player data to the game server
-      socket.emit('new player', { x: player.x, y: player.y });
-    },
-    
-    // Socket disconnected
-    onSocketDisconnect: function() {
-      console.log('Disconnected from socket server');
-    },
-    
-    // New player
-    onNewPlayer: function(data) {
-      console.log('New player connection in game.js:', data.id);
-    
-      // Avoid possible duplicate players
-      var duplicate = playerById(data.id);
-      if (duplicate) {
-        console.log('Duplicate player!');
-        return;
-      }
-    
-      // Add new player to the remote players array
-      players.push(new RemotePlayer(data.id, this, player, playerStartX, playerStartY, data.color));
-    },
-    
-    // Move player
-    onMovePlayer: function(data) {
-      var movePlayer = playerById(data.id);
-       //var oldX = movePlayer.player.x;
-      // Player not found
-      if (!movePlayer) {
-        console.log('Player not found: ', data.id);
-        return;
-      }
-    
-      movePlayer.player.x = data.x
-      movePlayer.player.y = data.y
-    },
-    
-    // Remove player
-    onRemovePlayer: function(data) {
-      var removePlayer = playerById(data.id)
-    
-      // Player not found
-      if (!removePlayer) {
-        console.log('Player not found: ', data.id)
-        return
-      }
-    
-      removePlayer.player.kill()
-    
-      // Remove player from array
-      players.splice(players.indexOf(removePlayer), 1)
-    },
-    
     update: function() {
         //updateTimer();
         //for(var i =0; i< players.length; i++){
