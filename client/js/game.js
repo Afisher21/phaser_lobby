@@ -2,26 +2,7 @@ var pRace = pRace || {};
 
 pRace.Game = function(){};
 pRace.Game.prototype = {
-    // socket io stuff
-    setEventHandlers: function() {
-      // Socket connection successful
-      socket.on('connect', onSocketConnected);
     
-      // Socket disconnection
-      socket.on('disconnect', onSocketDisconnect);
-    
-      // New player message received
-      socket.on('new player', onNewPlayer);
-    
-      // Player move message received
-      socket.on('move player', onMovePlayer);
-    
-      // Player removed message received
-      socket.on('remove player', onRemovePlayer);
-    
-      // check traps
-      socket.on('trap activated', onActivateTrap);
-    },
     // Activate trap
     onActivateTrap: function(data){
     	var trap = data.trapNumb;
@@ -400,7 +381,23 @@ pRace.Game.prototype = {
         cursors = this.input.keyboard.createCursorKeys();
         reset_key = this.input.keyboard.addKey(Phaser.Keyboard.R);
         interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
-        setEventHandlers;
+         // Socket connection successful
+      socket.on('connect', onSocketConnected);
+    
+      // Socket disconnection
+      socket.on('disconnect', onSocketDisconnect);
+    
+      // New player message received
+      socket.on('new player', onNewPlayer);
+    
+      // Player move message received
+      socket.on('move player', onMovePlayer);
+    
+      // Player removed message received
+      socket.on('remove player', onRemovePlayer);
+    
+      // check traps
+      socket.on('trap activated', onActivateTrap);
     },
     update: function() {
         //updateTimer();
