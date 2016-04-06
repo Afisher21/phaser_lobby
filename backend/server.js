@@ -16,6 +16,7 @@ pg.connect("process.env.postgres://ikmzkluqcvshjh:QYruHgRuFPKk2Qhk4xDgNCbWyN@ec2
     .on('row', function(row) {
       console.log(JSON.stringify(row));
     });
+    
 });
 
 var Player = require('./Player')

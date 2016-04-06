@@ -50,7 +50,10 @@ var players;
 
 
 // Add states game can be in 
-
+/* 
+                            |-------------|
+    Main -> Preload -> MainMenu -> Instructions || Game
+*/
 pRace.game.state.add('Preload', pRace.Preload);
 pRace.game.state.add('MainMenu', pRace.MainMenu);
 // pRace.game.state.add('Lobby', pRace.Lobby);
