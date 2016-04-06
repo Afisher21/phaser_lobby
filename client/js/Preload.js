@@ -15,6 +15,7 @@ pRace.Preload.prototype = {
         this.load.image('button', 'assets/button.png');
         this.load.image('trapGun', 'assets/trapGun.png');
         this.load.image('laser', 'assets/laser.png');
+        this.load.image('Play!', 'assets/play_button.png');
         //this.load.audio('music', 'assets/jumper.mp3');
         this.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
         this.load.spritesheet('dude0', 'assets/dude2.png', 19, 27);
