@@ -22,8 +22,8 @@ pRace.Preload.prototype = {
         //this.load.audio('music', 'assets/jumper.mp3');
         this.load.spritesheet('dude', 'assets/dude2.png', 19, 27);
         this.load.spritesheet('dude0', 'assets/dude2.png', 19, 27);
+        // These lines caused issues being located here
         //this.renderer.renderSession.roundPixels = true;
-        // This next line may cause issues, need to test
         //Phaser.Canvas.setImageRenderingCrisp(game.this.canvas)
     },
     create: function(){
