@@ -5,13 +5,8 @@ pRace.game = new Phaser.Game(800, 600, Phaser.AUTO, '');
 
 // Variables for running set up stuff
 
-var gameWorld = [];
-var gameState = { color: "", position: 0};
-var frame = "";
-var color = "";
-var gameFrame = 0;
 var pRace_frames = 0;
-var pRace_colors = 0;
+
 
 // Variables for Game 
 // Game
