@@ -141,7 +141,7 @@ pRace.Game.prototype = {
     
         //  Player physics properties. Give the little guy a slight bounce.
         //    player.body.bounce.y = 0.2;
-        player.body.gravity.y = 600;
+        player.body.gravity.y = 900;
         player.body.collideWorldBounds = true;
     
         //  Our two animations, walking left and right.
