@@ -185,59 +185,62 @@ pRace.Game.prototype = {
             //hazard.angle += 180;
             hazard.body.immovable = true;
         }
+        
+        trapGuns = this.add.group();
+        trapGuns.enableBody = true;
+        
+         //trap one of the map
+        buttonOne = this.add.group();
+        buttonOne.enableBody = true;
+        trapButtonOne = buttonOne.create(990, 2380, 'button');
+        buttonOne.scale.setTo(.5,.5);
+        trapButtonOne.body.immovable = true;
     
-     //trap one of the map
-    buttonOne = this.add.group();
-    buttonOne.enableBody = true;
-    trapButtonOne = buttonOne.create(990, 2380, 'button');
-    buttonOne.scale.setTo(.5,.5);
-    trapButtonOne.body.immovable = true;
-
-
-    //trap two of the map
-    buttonTwo = this.add.group();
-    buttonTwo.enableBody = true;
-    trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
-    buttonTwo.scale.setTo(.5,.5);
-    trapButtonTwo.body.immovable = true;
-    trapButtonTwo.anchor.setTo(.5,.5);
-    trapButtonTwo.scale.x *= -1;
-    var trapGun = trapGuns.create(671, 1008, 'trapGun');
-    //trapGun.scale.setTo(2,2);
-    trapGun.body.immovable = true;
-    trapTwoLaser = this.add.group();
-    trapTwoLaser.enableBody = true;
-    var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
-    laserTwo.scale.setTo(1,6);
-    laserTwo.body.immovable = true;
-
-
-
-
-    //trap three of the map
-    buttonThree = this.add.group();
-    buttonThree.enableBody = true;
-    trapButtonThree = buttonThree.create(3885, 2050, 'button');
-    buttonThree.scale.setTo(.5,.5);
-    trapButtonThree.body.immovable = true;
-    trapButtonThree.anchor.setTo(.5,.5);
-    trapButtonThree.scale.x *= -1;
-    var trapGun = trapGuns.create(1928, 1075, 'trapGun');
-    //trapGun.scale.setTo(2,2);
-    trapGun.body.immovable = true;
-    trapGun.anchor.setTo(.5,.5);
-    trapGun.scale.y *= -1;
-    trapThreeLaser = this.add.group();
-    trapThreeLaser.enableBody = true;
-    var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
-    laserThree.scale.setTo(1,5);
-    laserThree.body.immovable = true;
-    laserThree.anchor.setTo(.5,.5);
-    laserThree.scale.y *= -1;
-    //laserThree.visible = false;
-
-
     
+        //trap two of the map
+        buttonTwo = this.add.group();
+        buttonTwo.enableBody = true;
+        trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
+        buttonTwo.scale.setTo(.5,.5);
+        trapButtonTwo.body.immovable = true;
+        trapButtonTwo.anchor.setTo(.5,.5);
+        trapButtonTwo.scale.x *= -1;
+        var trapGun = trapGuns.create(671, 1008, 'trapGun');
+        //trapGun.scale.setTo(2,2);
+        trapGun.body.immovable = true;
+        trapTwoLaser = this.add.group();
+        trapTwoLaser.enableBody = true;
+        var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
+        laserTwo.scale.setTo(1,6);
+        laserTwo.body.immovable = true;
+    
+    
+    
+    
+        //trap three of the map
+        buttonThree = this.add.group();
+        buttonThree.enableBody = true;
+        trapButtonThree = buttonThree.create(3885, 2050, 'button');
+        buttonThree.scale.setTo(.5,.5);
+        trapButtonThree.body.immovable = true;
+        trapButtonThree.anchor.setTo(.5,.5);
+        trapButtonThree.scale.x *= -1;
+        var trapGun = trapGuns.create(1928, 1075, 'trapGun');
+        //trapGun.scale.setTo(2,2);
+        trapGun.body.immovable = true;
+        trapGun.anchor.setTo(.5,.5);
+        trapGun.scale.y *= -1;
+        trapThreeLaser = this.add.group();
+        trapThreeLaser.enableBody = true;
+        var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
+        laserThree.scale.setTo(1,5);
+        laserThree.body.immovable = true;
+        laserThree.anchor.setTo(.5,.5);
+        laserThree.scale.y *= -1;
+        //laserThree.visible = false;
+    
+    
+        
         trapOneSpikes = this.add.group();
         trapOneSpikes.enableBody = true;
         for(var i=0;i<6;i++){
