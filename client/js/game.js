@@ -366,7 +366,7 @@ pRace.Game.prototype = {
       console.log('New player connection in game.js:', data.id);
     
       // Avoid possible duplicate players
-      var duplicate = this.playerById(data.id);
+      var duplicate = this.playerSearchById(data.id);
       if (duplicate) {
         console.log('Duplicate player!');
         return;
@@ -378,7 +378,7 @@ pRace.Game.prototype = {
     
     // Move player
     onMovePlayer: function(data) {
-      var movePlayer = this.playerById(data.id);
+      var movePlayer = this.playerSearchById(data.id);
        //var oldX = movePlayer.player.x;
       // Player not found
       if (!movePlayer) {
@@ -392,7 +392,7 @@ pRace.Game.prototype = {
     
     // Remove player
     onRemovePlayer: function(data) {
-      var removePlayer = this.playerById(data.id)
+      var removePlayer = this.playerSearchById(data.id)
     
       // Player not found
       if (!removePlayer) {
@@ -610,8 +610,9 @@ pRace.Game.prototype = {
        }
        this.time.events.add(1500, resetTrapThree, this);
     },
+    
       // Find player by ID
-    playerById: function(id) {
+    playerSearchById: function(id) {
       for (var i = 0; i < players.length; i++) {
         if (players[i].player.name === id) {
           return players[i]
