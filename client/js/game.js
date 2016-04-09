@@ -610,6 +610,16 @@ pRace.Game.prototype = {
        }
        this.time.events.add(1500, resetTrapThree, this);
     },
+      // Find player by ID
+    playerById: function(id) {
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === id) {
+          return players[i]
+        }
+      }
+    
+      return false
+    },
     updateTimer: function() {
         minutes = Math.floor(this.time.time / 60000) % 60;
         seconds = Math.floor(this.time.time / 1000) % 60;
@@ -622,15 +632,6 @@ pRace.Game.prototype = {
         if (minutes < 10)
                 minutes = '0' + minutes;
         timer.setText(minutes + ':'+ seconds + ':' + milliseconds);
-    },
-    // Find player by ID
-    playerById: function(id) {
-      for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === id) {
-          return players[i]
-        }
-      }
-    
-      return false
     }
+  
 };
