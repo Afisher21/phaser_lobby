@@ -470,7 +470,7 @@ pRace.Game.prototype = {
         socket.emit('move player',{ x: player.x, y: player.y });
     },
     render: function() {
-        this.debug.text(this.time.fps,2,14, "#00ff00");
+  //      this.debug.text(this.time.fps,2,14, "#00ff00");
     },
     collectStar: function(player, star) {
     
