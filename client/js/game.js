@@ -344,12 +344,11 @@ pRace.Game.prototype = {
       console.log('Connected to socket server');
     
       // Reset players on reconnect
-      this.players.forEach(function (enemy) {
+      players.forEach(function (enemy) {
         enemy.player.kill();
-      })
-      this.players = [];
-    
-      // Send local player data to the game server
+       })
+      players = [];
+          // Send local player data to the game server
       socket.emit('new player', { x: player.x, y: player.y });
     },
     
@@ -363,7 +362,7 @@ pRace.Game.prototype = {
       console.log('New player connection in game.js:', data.id);
     
       // Avoid possible duplicate players
-      var duplicate = playerById(data.id);
+      var duplicate = this.playerById(data.id);
       if (duplicate) {
         console.log('Duplicate player!');
         return;
@@ -375,7 +374,7 @@ pRace.Game.prototype = {
     
     // Move player
     onMovePlayer: function(data) {
-      var movePlayer = playerById(data.id);
+      var movePlayer = this.playerById(data.id);
        //var oldX = movePlayer.player.x;
       // Player not found
       if (!movePlayer) {
@@ -389,7 +388,7 @@ pRace.Game.prototype = {
     
     // Remove player
     onRemovePlayer: function(data) {
-      var removePlayer = playerById(data.id)
+      var removePlayer = this.playerById(data.id)
     
       // Player not found
       if (!removePlayer) {
@@ -415,15 +414,15 @@ pRace.Game.prototype = {
           // players[i].update();
         //}
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-        this.physics.arcade.overlap(player, stars, collectStar, null, this);
-        this.physics.arcade.overlap(player, hazards, resetPlayer, null, this);
-        this.physics.arcade.overlap(player, trapOneSpikes, resetPlayer, null, this);
-        this.physics.arcade.overlap(player, trapTwoLaser, resetPlayer, null, this);
-        this.physics.arcade.overlap(player, trapThreeLaser, resetPlayer, null, this);
-        this.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
-        this.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
-        this.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
-        this.physics.arcade.overlap(player, flags, touchFlag, null, this);
+        this.physics.arcade.overlap(player, stars, this.collectStar, null, this);
+        this.physics.arcade.overlap(player, hazards, this.resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapOneSpikes, this.resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapTwoLaser, this.resetPlayer, null, this);
+        this.physics.arcade.overlap(player, trapThreeLaser, this.resetPlayer, null, this);
+        this.physics.arcade.overlap(player, buttonOne, this.activateTrapOneContainer, null, this);
+        this.physics.arcade.overlap(player, buttonTwo, this.activateTrapTwoContainer, null, this);
+        this.physics.arcade.overlap(player, buttonThree, this.activateTrapThreeContainer, null, this);
+        this.physics.arcade.overlap(player, flags, this.touchFlag, null, this);
         //  Reset the players velocity (movement)
         player.body.velocity.x = 0;
     
@@ -482,7 +481,7 @@ pRace.Game.prototype = {
     
     },
     touchFlag: function(player, flag){
-       resetPlayer(player,flag);
+       this.resetPlayer(player,flag);
     },
     resetPlayer: function(player, hazard){
         function innerReset(){
@@ -499,7 +498,7 @@ pRace.Game.prototype = {
         {
             //trapButtonOne.kill();
     		socket.emit('trap activated',{ trapNumb: 1 });
-          activateTrapOne();
+          this.activateTrapOne();
         }
     },
     activateTrapOne: function(){
@@ -516,7 +515,7 @@ pRace.Game.prototype = {
             //activateTrapOne();
             //this.time.events.add(3000, resetTrapOne, this);
             socket.emit('trap activated',{ trapNumb: 2 });
-            activateTrapTwo();
+            this.activateTrapTwo();
         }
     },
     activateTrapTwo: function(){
@@ -533,7 +532,7 @@ pRace.Game.prototype = {
             //activateTrapOne();
             //this.time.events.add(3000, resetTrapOne, this);
             socket.emit('trap activated',{ trapNumb: 3 });
-            activateTrapThree();
+            this.activateTrapThree();
         }
     },
     activateTrapThree: function(){
