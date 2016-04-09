@@ -30,8 +30,13 @@ var trapOneSpikes;
 var trapTwoLaser;
 var trapThreeLaser;
 var buttonOne;
+var trapButtonOne;
 var buttonTwo;
+var trapButtonTwo;
 var buttonThree;
+var trapButtonThree;
+var trapGuns;
+var  jumptimer = 0;
 // Timer
 // code from http://www.html5gamedevs.com/topic/1870-in-game-timer/
 var timer;

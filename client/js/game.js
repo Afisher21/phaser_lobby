@@ -186,57 +186,57 @@ pRace.Game.prototype = {
             hazard.body.immovable = true;
         }
     
-    
-        //trap one of the map
-        buttonOne = this.add.group();
-        buttonOne.enableBody = true;
-        var trapButtonOne = buttonOne.create(990, 2380, 'button');
-        buttonOne.scale.setTo(.5,.5);
-        trapButtonOne.body.immovable = true;
-    
-    
-        //trap two of the map
-        buttonTwo = this.add.group();
-        buttonTwo.enableBody = true;
-        var trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
-        buttonTwo.scale.setTo(.5,.5);
-        trapButtonTwo.body.immovable = true;
-        trapButtonTwo.anchor.setTo(.5,.5);
-        trapButtonTwo.scale.x *= -1;
-        var trapGun = buttonTwo.create(1345, 2010, 'trapGun');
-        trapGun.scale.setTo(2,2);
-        trapGun.body.immovable = true;
-        trapTwoLaser = this.add.group();
-        trapTwoLaser.enableBody = true;
-        var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
-        laserTwo.scale.setTo(1,6);
-        laserTwo.body.immovable = true;
-    
-    
-    
-    
-        //trap three of the map
-        buttonThree = this.add.group();
-        buttonThree.enableBody = true;
-        var trapButtonThree = buttonThree.create(3885, 2050, 'button');
-        buttonThree.scale.setTo(.5,.5);
-        trapButtonThree.body.immovable = true;
-        trapButtonThree.anchor.setTo(.5,.5);
-        trapButtonThree.scale.x *= -1;
-        var trapGun = buttonThree.create(3860, 2150, 'trapGun');
-        trapGun.scale.setTo(2,2);
-        trapGun.body.immovable = true;
-        trapGun.anchor.setTo(.5,.5);
-        trapGun.scale.y *= -1;
-        trapThreeLaser = this.add.group();
-        trapThreeLaser.enableBody = true;
-        var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
-        laserThree.scale.setTo(1,5);
-        laserThree.body.immovable = true;
-        laserThree.anchor.setTo(.5,.5);
-        laserThree.scale.y *= -1;
-        //laserThree.visible = false;
-    
+     //trap one of the map
+    buttonOne = this.add.group();
+    buttonOne.enableBody = true;
+    trapButtonOne = buttonOne.create(990, 2380, 'button');
+    buttonOne.scale.setTo(.5,.5);
+    trapButtonOne.body.immovable = true;
+
+
+    //trap two of the map
+    buttonTwo = this.add.group();
+    buttonTwo.enableBody = true;
+    trapButtonTwo = buttonTwo.create(1480, 2230, 'button');
+    buttonTwo.scale.setTo(.5,.5);
+    trapButtonTwo.body.immovable = true;
+    trapButtonTwo.anchor.setTo(.5,.5);
+    trapButtonTwo.scale.x *= -1;
+    var trapGun = trapGuns.create(671, 1008, 'trapGun');
+    //trapGun.scale.setTo(2,2);
+    trapGun.body.immovable = true;
+    trapTwoLaser = this.add.group();
+    trapTwoLaser.enableBody = true;
+    var laserTwo = trapTwoLaser.create(-100, 470, 'laser');
+    laserTwo.scale.setTo(1,6);
+    laserTwo.body.immovable = true;
+
+
+
+
+    //trap three of the map
+    buttonThree = this.add.group();
+    buttonThree.enableBody = true;
+    trapButtonThree = buttonThree.create(3885, 2050, 'button');
+    buttonThree.scale.setTo(.5,.5);
+    trapButtonThree.body.immovable = true;
+    trapButtonThree.anchor.setTo(.5,.5);
+    trapButtonThree.scale.x *= -1;
+    var trapGun = trapGuns.create(1928, 1075, 'trapGun');
+    //trapGun.scale.setTo(2,2);
+    trapGun.body.immovable = true;
+    trapGun.anchor.setTo(.5,.5);
+    trapGun.scale.y *= -1;
+    trapThreeLaser = this.add.group();
+    trapThreeLaser.enableBody = true;
+    var laserThree = trapThreeLaser.create(2200, 1320, 'laser');
+    laserThree.scale.setTo(1,5);
+    laserThree.body.immovable = true;
+    laserThree.anchor.setTo(.5,.5);
+    laserThree.scale.y *= -1;
+    //laserThree.visible = false;
+
+
     
         trapOneSpikes = this.add.group();
         trapOneSpikes.enableBody = true;
@@ -303,6 +303,7 @@ pRace.Game.prototype = {
         cursors = this.input.keyboard.createCursorKeys();
         reset_key = this.input.keyboard.addKey(Phaser.Keyboard.R);
         interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
+        jump_key = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.setEventHandlers();
     },
     // socket io stuff
@@ -445,27 +446,60 @@ pRace.Game.prototype = {
           player.body.x = playerStartX;
           player.body.y = playerStartY;
         }
-        else
+       else
         {
             //  Stand still
             player.animations.stop();
     
             player.frame = 4;
         }
-    
+
         //  Allow the player to jump if they are touching the ground.
         if (cursors.up.isDown && player.body.touching.down)
         {
+            player.body.velocity.y = -450;
+    
+            setTimeout(function(){
+                player.jumping = true;
+            }, 100);
+        }
+    
+        if (player.jumping && player.body.touching.down)
+        {
+            player.jumping = false;
+            if (doubleJump === 0)
+            {
+                doubleJump = 1;
+            }
+        }
+    
+        if (doubleJump === 1 && !cursors.up.isDown && player.jumping)
+        {
+                doubleJump = 2;
+        }
+    
+        if (player.body.touching.down && doubleJump === 2)
+        {
+            doubleJump = 1;
+        }
+    
+        if (cursors.up.isDown && player.jumping && doubleJump === 2)
+        {
+            player.body.velocity.y = -450;
+            doubleJump = 0;
+        }
+        /*if ((cursors.up.isDown || jump_key.isDown) && player.body.touching.down)
+        {
             player.body.velocity.y = -350;
         }
-        if ( player.body.touching.down && doubleJump === 0){
+        if (     player.body.touching.down && doubleJump === 0){
             doubleJump++;
         }
         // allow the player to double jump;
-        if (cursors.up.isDown && doubleJump > 0 && player.body.velocity.y >= - 200){
+        if ((cursors.up.isDown || jump_key.isDown) && doubleJump > 0 && player.body.velocity.y >= - 200){
             player.body.velocity.y = -350;
             doubleJump-=1;
-        }
+        }*/
     
         socket.emit('move player',{ x: player.x, y: player.y });
     },
@@ -501,8 +535,19 @@ pRace.Game.prototype = {
           this.activateTrapOne();
         }
     },
+    activateButtonOne: function()
+    {
+        console.log('button one pressed');
+        trapButtonOne.loadTexture('button_pressed');
+        function resetButtonOne()
+        {
+            trapButtonOne.loadTexture('button');
+        }
+        this.time.events.add(3000, resetButtonOne, this);
+    },
     activateTrapOne: function(){
         trapOneSpikes.setAll('y', 1288);
+        this.activateButtonOne();
        function resetTrapOne (){
           trapOneSpikes.setAll('y', 1312);
        }
@@ -518,8 +563,18 @@ pRace.Game.prototype = {
             this.activateTrapTwo();
         }
     },
+    activateButtonTwo: function()
+    {
+        trapButtonTwo.loadTexture('button_pressed');
+        function resetButtonTwo()
+        {
+            trapButtonTwo.loadTexture('button');
+        }
+        this.time.events.add(1500, resetButtonTwo, this);
+    },
     activateTrapTwo: function(){
         trapTwoLaser.setAll('x', 700);
+        this.activateButtonTwo();
         function resetTrapTwo (){
            trapTwoLaser.setAll('x', -100);
         }
@@ -535,8 +590,18 @@ pRace.Game.prototype = {
             this.activateTrapThree();
         }
     },
+    activateButtonThree: function()
+    {
+        trapButtonThree.loadTexture('button_pressed');
+        function resetButtonThree()
+        {
+            trapButtonThree.loadTexture('button');
+        }
+        this.time.events.add(1500, resetButtonThree, this);
+    },
     activateTrapThree: function(){
         trapThreeLaser.setAll('x', 1928);
+        this.activateButtonThree();
        function resetTrapThree (){
            trapThreeLaser.setAll('x', 2050);
        }
