@@ -366,7 +366,12 @@ pRace.Game.prototype = {
       console.log('New player connection in game.js:', data.id);
     
       // Avoid possible duplicate players
-      var duplicate = this.playerSearchById(data.id);
+      var duplicate = false;
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === data.id) {
+          duplicate = players[i];
+        }
+      }
       if (duplicate) {
         console.log('Duplicate player!');
         return;
@@ -378,7 +383,12 @@ pRace.Game.prototype = {
     
     // Move player
     onMovePlayer: function(data) {
-      var movePlayer = this.playerSearchById(data.id);
+      var movePlayer = false;
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === data.id) {
+          movePlayer = players[i];
+        }
+      }
        //var oldX = movePlayer.player.x;
       // Player not found
       if (!movePlayer) {
@@ -392,7 +402,12 @@ pRace.Game.prototype = {
     
     // Remove player
     onRemovePlayer: function(data) {
-      var removePlayer = this.playerSearchById(data.id)
+      var removePlayer = false;
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === data.id) {
+          removePlayer = players[i]
+        }
+      }
     
       // Player not found
       if (!removePlayer) {
