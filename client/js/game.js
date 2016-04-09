@@ -10,7 +10,7 @@ pRace.Game.prototype = {
     
         //  We're going to be using physics, so enable the Arcade Physics system
         this.physics.startSystem(Phaser.Physics.ARCADE);
-       this.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
+        this.world.setBounds(0,0,2000,2000); // (x,y, width, height)?
         //  A simple background for our game
         var sky = this.add.sprite(0, 0, 'sky');
         sky.scale.setTo(4, 4);
@@ -303,39 +303,39 @@ pRace.Game.prototype = {
         cursors = this.input.keyboard.createCursorKeys();
         reset_key = this.input.keyboard.addKey(Phaser.Keyboard.R);
         interact_key = this.input.keyboard.addKey(Phaser.Keyboard.T);
-        setEventHandlers();
+        this.setEventHandlers();
     },
     // socket io stuff
     setEventHandlers: function() {
       // Socket connection successful
-      socket.on('connect', onSocketConnected);
+      socket.on('connect', this.onSocketConnected);
     
       // Socket disconnection
-      socket.on('disconnect', onSocketDisconnect);
+      socket.on('disconnect', this.onSocketDisconnect);
     
       // New player message received
-      socket.on('new player', onNewPlayer);
+      socket.on('new player', this.onNewPlayer);
     
       // Player move message received
-      socket.on('move player', onMovePlayer);
+      socket.on('move player', this.onMovePlayer);
     
       // Player removed message received
-      socket.on('remove player', onRemovePlayer);
+      socket.on('remove player', this.onRemovePlayer);
     
       // check traps
-      socket.on('trap activated', onActivateTrap);
+      socket.on('trap activated', this.onActivateTrap);
     },
     // Activate trap
     onActivateTrap: function(data){
     	var trap = data.trapNumb;
     	if (trap === 1){
-    		activateTrapOne();
+    		this.activateTrapOne();
     	}
        if (trap === 2){
-          activateTrapTwo();
+          this.activateTrapTwo();
        }
        if (trap === 3){
-          activateTrapThree();
+          this.activateTrapThree();
        }
     },
     
@@ -344,10 +344,10 @@ pRace.Game.prototype = {
       console.log('Connected to socket server');
     
       // Reset players on reconnect
-      players.forEach(function (enemy) {
+      this.players.forEach(function (enemy) {
         enemy.player.kill();
       })
-      players = [];
+      this.players = [];
     
       // Send local player data to the game server
       socket.emit('new player', { x: player.x, y: player.y });

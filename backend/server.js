@@ -4,21 +4,6 @@ var path = require('path')
 var ecstatic = require('ecstatic')
 var io = require('socket.io')
 
-var pg = require('pg');
-
-pg.defaults.ssl = true;
-pg.connect("process.env.postgres://ikmzkluqcvshjh:QYruHgRuFPKk2Qhk4xDgNCbWyN@ec2-54-225-223-40.compute-1.amazonaws.com:5432/d67eroqetivb2j", function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-    
-});
-
 var Player = require('./Player')
 
 var port = process.env.PORT || 10003
