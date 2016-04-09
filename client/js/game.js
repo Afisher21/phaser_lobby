@@ -366,12 +366,7 @@ pRace.Game.prototype = {
       console.log('New player connection in game.js:', data.id);
     
       // Avoid possible duplicate players
-      var duplicate = false;
-      for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === data.id) {
-          duplicate = players[i];
-        }
-      }
+      var duplicate = this.playerSearchById(data.id);
       if (duplicate) {
         console.log('Duplicate player!');
         return;
