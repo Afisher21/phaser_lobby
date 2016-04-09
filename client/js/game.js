@@ -378,7 +378,7 @@ pRace.Game.prototype = {
       }
     
       // Add new player to the remote players array
-      players.push(new RemotePlayer(data.id, this, player, playerStartX, playerStartY, data.color));
+      players.push(new RemotePlayer(data.id, pRace.game, player, playerStartX, playerStartY, data.color));
     },
     
     // Move player
