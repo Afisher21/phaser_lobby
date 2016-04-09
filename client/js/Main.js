@@ -1,7 +1,7 @@
 // If pRace does not exist (it shouldn't) make it
 var pRace = pRace || {};
 
-pRace.game = new Phaser.Game(600, 800, Phaser.AUTO, '');
+pRace.game = new Phaser.Game(800, 600, Phaser.AUTO, '');
 
 // Variables for running set up stuff
 
