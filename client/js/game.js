@@ -188,14 +188,14 @@ pRace.Game.prototype = {
         hazards.enableBody=true;
         for(var i=0;i<5;i++){
     
-            var hazard = hazards.create(385+i*10, this.world.height-541, 'spike');
+            var hazard = hazards.create(385+i*10, this.world.height-534, 'spike');
             hazard.scale.setTo(.1,.1);
             hazard.body.immovable = true;
         }
     
         for(var i=0;i<5;i++){
     
-            hazard = hazards.create(275+i*10, this.world.height-541, 'spike');
+            hazard = hazards.create(275+i*10, this.world.height-534, 'spike');
             hazard.scale.setTo(.1,.1);
             //hazard.angle += 180;
             hazard.body.immovable = true;
