@@ -20,6 +20,28 @@ pRace.Game.prototype = {
         // music.loop = true;
         // music.play();
     
+        // Add arrows to direct players    
+        arrows = this.add.group();
+        var arrow = arrows.create(500, 1700, 'arrow');
+        arrow.scale.setTo(.75, .75);
+        var arrow = arrows.create(850, 1320, 'arrow');
+        arrow.scale.setTo(.75, .75);
+        arrow.anchor.setTo(.5,.5);
+        arrow.angle += 115;
+        var arrow = arrows.create(1500, 1450, 'arrow');
+        arrow.scale.setTo(.75, .75);
+        arrow.anchor.setTo(.5,.5);
+        arrow.angle += 90;
+        var arrow = arrows.create(1140, 960, 'arrow');
+        arrow.scale.setTo(.75, .75);
+        arrow.anchor.setTo(.5,.5);
+        arrow.angle -= 60;
+        var arrow = arrows.create(1120, 550, 'arrow');
+        arrow.scale.setTo(.75, .75);
+        arrow.anchor.setTo(.5,.5);
+        arrow.angle += 60;
+
+    
     
         //  The platforms group contains the ground and the ledges we can jump on
         platforms = this.add.group();
@@ -337,10 +359,10 @@ pRace.Game.prototype = {
     		activateTrapOne();
     	}
        if (trap === 2){
-          activateTrapTwo();
+          this.activateTrapTwo();
        }
        if (trap === 3){
-          activateTrapThree();
+          this.activateTrapThree();
        }
     },
     
@@ -367,7 +389,12 @@ pRace.Game.prototype = {
       console.log('New player connection in game.js:', data.id);
     
       // Avoid possible duplicate players
-      var duplicate = playerSearchById(data.id)
+      var duplicate = false;
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === data.id) {
+          duplicate = players[i];
+        }
+      }
       if (duplicate) {
         console.log('Duplicate player!');
         return;
@@ -379,7 +406,12 @@ pRace.Game.prototype = {
     
     // Move player
     onMovePlayer: function(data) {
-        var movePlayer = playerSearchById(data.id)
+        var movePlayer = false;
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].player.name === data.id) {
+                movePlayer = players[i];
+            }
+        }
            //var oldX = movePlayer.player.x;
           // Player not found
         if (!movePlayer) {
@@ -403,7 +435,12 @@ pRace.Game.prototype = {
     
     // Remove player
     onRemovePlayer: function(data) {
-      var removePlayer = playerSearchById(data.id)
+      var removePlayer = false;
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === data.id) {
+          removePlayer = players[i]
+        }
+      }
     
       // Player not found
       if (!removePlayer) {
@@ -434,9 +471,9 @@ pRace.Game.prototype = {
         this.physics.arcade.overlap(player, trapOneSpikes, this.resetPlayer, null, this);
         this.physics.arcade.overlap(player, trapTwoLaser, this.resetPlayer, null, this);
         this.physics.arcade.overlap(player, trapThreeLaser, this.resetPlayer, null, this);
-        this.physics.arcade.overlap(player, buttonOne, activateTrapOneContainer, null, this);
-        this.physics.arcade.overlap(player, buttonTwo, activateTrapTwoContainer, null, this);
-        this.physics.arcade.overlap(player, buttonThree, activateTrapThreeContainer, null, this);
+        this.physics.arcade.overlap(player, buttonOne, this.activateTrapOneContainer, null, this);
+        this.physics.arcade.overlap(player, buttonTwo, this.activateTrapTwoContainer, null, this);
+        this.physics.arcade.overlap(player, buttonThree, this.activateTrapThreeContainer, null, this);
         this.physics.arcade.overlap(player, flags, this.touchFlag, null, this);
         //  Reset the players velocity (movement)
         player.body.velocity.x = 0;
@@ -541,6 +578,112 @@ pRace.Game.prototype = {
         player.kill();
         this.time.events.add(1500, innerReset, this);
     },
+    activateTrapOneContainer: function(player, trapButtonOne){
+        if(interact_key.isDown && !trapOneActive)
+        {
+            //trapButtonOne.kill();
+    		socket.emit('trap activated',{ trapNumb: 1 });
+            this.activateTrapOne();
+        }
+    },
+    activateButtonOne: function()
+    {
+        console.log('button one pressed');
+        trapButtonOne.loadTexture('button_pressed');
+        function resetButtonOne()
+        {
+            trapButtonOne.loadTexture('button');
+        }
+        this.time.events.add(3000+trapReactivateDelay, resetButtonOne, this);
+    },
+    activateTrapOne: function(){
+        trapOneActive = true;
+        trapOneSpikes.setAll('y', 1288);
+        this.activateButtonOne();
+        function allowTrapAgain(){
+           trapOneActive = false;
+        }
+        function resetTrapOne (){
+            trapOneSpikes.setAll('y', 1312);
+            this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
+        }
+        this.time.events.add(3000, resetTrapOne, this);
+    },
+    activateTrapTwoContainer: function (player, trapButtonTwo){
+        if(interact_key.isDown && !trapTwoActive)
+        {
+            //trapButtonOne.kill();
+            //activateTrapOne();
+            //this.time.events.add(3000, resetTrapOne, this);
+            socket.emit('trap activated',{ trapNumb: 2 });
+            this.activateTrapTwo();
+        }
+    },
+    activateButtonTwo: function()
+    {
+        trapButtonTwo.loadTexture('button_pressed');
+        function resetButtonTwo()
+        {
+            trapButtonTwo.loadTexture('button');
+        }
+        this.time.events.add(1500+trapReactivateDelay, resetButtonTwo, this);
+    },
+    activateTrapTwo: function(){
+        trapTwoActive = true;
+        trapTwoLaser.setAll('x', 700);
+        this.activateButtonTwo();
+        function allowTrapAgain(){
+            trapTwoActive = false;
+        }
+        function resetTrapTwo (){
+           trapTwoLaser.setAll('x', -100);
+           this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
+        }
+        this.time.events.add(1500, resetTrapTwo, this);
+    },
+    activateTrapThreeContainer: function (player, trapButtonThree){
+        if(interact_key.isDown  && !trapThreeActive)
+        {
+            //trapButtonOne.kill();
+            //activateTrapOne();
+            //this.time.events.add(3000, resetTrapOne, this);
+            socket.emit('trap activated',{ trapNumb: 3 });
+            this.activateTrapThree();
+        }
+    },
+    activateButtonThree: function()
+    {
+        trapButtonThree.loadTexture('button_pressed');
+        function resetButtonThree()
+        {
+            trapButtonThree.loadTexture('button');
+        }
+        this.time.events.add(1500 + trapReactivateDelay, resetButtonThree, this);
+    },
+    activateTrapThree: function(){
+        trapThreeActive = true;
+        trapThreeLaser.setAll('x', 1928);
+        this.activateButtonThree();
+        function allowTrapAgain(){
+          trapThreeActive = false;
+        }
+        function resetTrapThree (){
+           trapThreeLaser.setAll('x', 2050);
+           this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
+        }
+       this.time.events.add(1500, resetTrapThree, this);
+    },
+    
+      // Find player by ID
+    playerSearchById: function(id) {
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === id) {
+          return players[i]
+        }
+      }
+    
+      return false
+    },
     updateTimer: function() {
         minutes = Math.floor(this.time.time / 60000) % 60;
         seconds = Math.floor(this.time.time / 1000) % 60;
@@ -556,115 +699,3 @@ pRace.Game.prototype = {
     }
   
 };
-
-function activateTrapOneContainer(player, trapButtonOne){
-    if(interact_key.isDown && !trapOneActive)
-    {
-        //trapButtonOne.kill();
-		socket.emit('trap activated',{ trapNumb: 1 });
-        activateTrapOne();
-    }
-}
-function activateButtonOne()
-{
-    console.log('button one pressed');
-    trapButtonOne.loadTexture('button_pressed');
-    function resetButtonOne()
-    {
-        trapButtonOne.loadTexture('button');
-    }
-    pRace.game.time.events.add(3000+trapReactivateDelay, resetButtonOne, this);
-}
-function activateTrapOne()
-{
-    trapOneActive = true;
-    trapOneSpikes.setAll('y', 1288);
-    activateButtonOne();
-    function allowTrapAgain(){
-       trapOneActive = false;
-    }
-    function resetTrapOne (){
-        trapOneSpikes.setAll('y', 1312);
-        pRace.game.time.events.add(trapReactivateDelay, allowTrapAgain, this);
-    }
-    pRace.game.time.events.add(3000, resetTrapOne, this);
-}
-
-function activateTrapTwoContainer(player, trapButtonTwo)
-{
-    if(interact_key.isDown && !trapTwoActive)
-    {
-        //trapButtonOne.kill();
-        //activateTrapOne();
-        //this.time.events.add(3000, resetTrapOne, this);
-        socket.emit('trap activated',{ trapNumb: 2 });
-        activateTrapTwo();
-    }
-}
-function activateButtonTwo()
-{
-    trapButtonTwo.loadTexture('button_pressed');
-    function resetButtonTwo()
-    {
-        trapButtonTwo.loadTexture('button');
-    }
-    pRace.game.time.events.add(1500+trapReactivateDelay, resetButtonTwo, this);
-}
-function activateTrapTwo()
-{
-    trapTwoActive = true;
-    trapTwoLaser.setAll('x', 700);
-    activateButtonTwo();
-    function allowTrapAgain(){
-        trapTwoActive = false;
-    }
-    function resetTrapTwo (){
-       trapTwoLaser.setAll('x', -100);
-       pRace.game.time.events.add(trapReactivateDelay, allowTrapAgain, this);
-    }
-    pRace.game.time.events.add(1500, resetTrapTwo, this);
-}
-function activateTrapThreeContainer (player, trapButtonThree)
-{
-    if(interact_key.isDown  && !trapThreeActive)
-    {
-        //trapButtonOne.kill();
-        //activateTrapOne();
-        //this.time.events.add(3000, resetTrapOne, this);
-        socket.emit('trap activated',{ trapNumb: 3 });
-        activateTrapThree();
-    }
-}
-function activateButtonThree()
-{
-    trapButtonThree.loadTexture('button_pressed');
-    function resetButtonThree()
-    {
-        trapButtonThree.loadTexture('button');
-    }
-    pRace.game.time.events.add(1500 + trapReactivateDelay, resetButtonThree, this);
-}
-function activateTrapThree (){
-    trapThreeActive = true;
-    trapThreeLaser.setAll('x', 1928);
-    activateButtonThree();
-    function allowTrapAgain(){
-      trapThreeActive = false;
-    }
-    function resetTrapThree (){
-       trapThreeLaser.setAll('x', 2050);
-       pRace.game.time.events.add(trapReactivateDelay, allowTrapAgain, this);
-    }
-   pRace.game.time.events.add(1500, resetTrapThree, this);
-}
-
-      // Find player by ID
-function playerSearchById(id) {
-    for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === id) {
-            return players[i]
-        }
-    }
-    
-    return false
-}

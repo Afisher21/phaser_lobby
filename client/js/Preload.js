@@ -6,7 +6,8 @@ pRace.Preload.prototype = {
     preload: function(){
     this.time.advancedTiming = true;
     this.load.image('flag','assets/flag.png');
-    this.load.image('spike','assets/spike D.png');
+    this.load.image('arrow','assets/arrow.png');
+    this.load.image('spike','assets/metallic_spike.png');
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform2.png');
     this.load.image('star', 'assets/star.png');
