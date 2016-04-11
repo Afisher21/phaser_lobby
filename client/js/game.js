@@ -529,7 +529,7 @@ pRace.Game.prototype = {
         // Removes the star from the screen
         star.kill();
     
-        doubleJump += 1;
+        doubleJump = 2;
     
     },
     touchFlag: function(player, flag){
@@ -546,11 +546,11 @@ pRace.Game.prototype = {
         this.time.events.add(1500, innerReset, this);
     },
     activateTrapOneContainer: function(player, trapButtonOne){
-        if(interact_key.isDown)
+        if(interact_key.isDown && !trapOneActive)
         {
             //trapButtonOne.kill();
     		socket.emit('trap activated',{ trapNumb: 1 });
-          this.activateTrapOne();
+            this.activateTrapOne();
         }
     },
     activateButtonOne: function()
@@ -561,18 +561,23 @@ pRace.Game.prototype = {
         {
             trapButtonOne.loadTexture('button');
         }
-        this.time.events.add(3000, resetButtonOne, this);
+        this.time.events.add(3000+trapReactivateDelay, resetButtonOne, this);
     },
     activateTrapOne: function(){
+        trapOneActive = true;
         trapOneSpikes.setAll('y', 1288);
         this.activateButtonOne();
-       function resetTrapOne (){
-          trapOneSpikes.setAll('y', 1312);
-       }
-          this.time.events.add(3000, resetTrapOne, this);
+        function allowTrapAgain(){
+           trapOneActive = false;
+        }
+        function resetTrapOne (){
+            trapOneSpikes.setAll('y', 1312);
+            this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
+        }
+        this.time.events.add(3000, resetTrapOne, this);
     },
     activateTrapTwoContainer: function (player, trapButtonTwo){
-        if(interact_key.isDown)
+        if(interact_key.isDown && !trapTwoActive)
         {
             //trapButtonOne.kill();
             //activateTrapOne();
@@ -588,18 +593,23 @@ pRace.Game.prototype = {
         {
             trapButtonTwo.loadTexture('button');
         }
-        this.time.events.add(1500, resetButtonTwo, this);
+        this.time.events.add(1500+trapReactivateDelay, resetButtonTwo, this);
     },
     activateTrapTwo: function(){
+        trapTwoActive = true;
         trapTwoLaser.setAll('x', 700);
         this.activateButtonTwo();
+        function allowTrapAgain(){
+            trapTwoActive = false;
+        }
         function resetTrapTwo (){
            trapTwoLaser.setAll('x', -100);
+           this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
         }
         this.time.events.add(1500, resetTrapTwo, this);
     },
     activateTrapThreeContainer: function (player, trapButtonThree){
-        if(interact_key.isDown)
+        if(interact_key.isDown  && !trapThreeActive)
         {
             //trapButtonOne.kill();
             //activateTrapOne();
@@ -615,14 +625,19 @@ pRace.Game.prototype = {
         {
             trapButtonThree.loadTexture('button');
         }
-        this.time.events.add(1500, resetButtonThree, this);
+        this.time.events.add(1500 + trapReactivateDelay, resetButtonThree, this);
     },
     activateTrapThree: function(){
+        trapThreeActive = true;
         trapThreeLaser.setAll('x', 1928);
         this.activateButtonThree();
-       function resetTrapThree (){
+        function allowTrapAgain(){
+          trapThreeActive = false;
+        }
+        function resetTrapThree (){
            trapThreeLaser.setAll('x', 2050);
-       }
+           this.time.events.add(trapReactivateDelay, allowTrapAgain, this);
+        }
        this.time.events.add(1500, resetTrapThree, this);
     },
     

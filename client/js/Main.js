@@ -39,6 +39,10 @@ var trapGuns;
 var  jumptimer = 0;
 // Timer
 // code from http://www.html5gamedevs.com/topic/1870-in-game-timer/
+var trapReactivateDelay = 3000;
+var trapOneActive = false;
+var trapTwoActive = false;
+var trapThreeActive = false;
 var timer;
 var minutes = 0;
 var seconds = 0;
