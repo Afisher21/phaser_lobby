@@ -203,7 +203,7 @@ pRace.Game.prototype = {
     
         for(var i=0;i<5;i++){
     
-            hazard = hazards.create(165+i*10, this.world.height-541, 'spike');
+            hazard = hazards.create(165+i*10, this.world.height-534, 'spike');
             hazard.scale.setTo(.1,.1);
             //hazard.angle += 180;
             hazard.body.immovable = true;
@@ -598,7 +598,7 @@ pRace.Game.prototype = {
     },
     activateTrapOne: function(){
         trapOneActive = true;
-        trapOneSpikes.setAll('y', 1288);
+        trapOneSpikes.setAll('y', 1294);
         this.activateButtonOne();
         function allowTrapAgain(){
            trapOneActive = false;
