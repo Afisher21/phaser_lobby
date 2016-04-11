@@ -333,7 +333,7 @@ pRace.Game.prototype = {
     onActivateTrap: function(data){
     	var trap = data.trapNumb;
     	if (trap === 1){
-    		this.activateTrapOne();
+    		activateTrapOne();
     	}
        if (trap === 2){
           this.activateTrapTwo();
