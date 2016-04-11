@@ -4,6 +4,7 @@ pRace.Game = function(){};
 pRace.Game.prototype = {
     create: function() {
         socket = io.connect();
+        pRace.game.stage.disableVisibilityChange = true;
     
         //change to -1 to disable doubleJump, change to 0 to enable. Stars will enable.
         doubleJump = -1;
@@ -367,11 +368,7 @@ pRace.Game.prototype = {
     
       // Avoid possible duplicate players
       var duplicate = false;
-      for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === data.id) {
-          duplicate = players[i];
-        }
-      }
+      duplicate = playerSearchById(data.id)
       if (duplicate) {
         console.log('Duplicate player!');
         return;
@@ -383,21 +380,31 @@ pRace.Game.prototype = {
     
     // Move player
     onMovePlayer: function(data) {
-      var movePlayer = false;
-      for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === data.id) {
-          movePlayer = players[i];
+        var movePlayer = false;
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].player.name === data.id) {
+                movePlayer = players[i];
+            }
         }
-      }
-       //var oldX = movePlayer.player.x;
-      // Player not found
-      if (!movePlayer) {
-        console.log('Player not found: ', data.id);
-        return;
-      }
-    
-      movePlayer.player.x = data.x
-      movePlayer.player.y = data.y
+           //var oldX = movePlayer.player.x;
+          // Player not found
+        if (!movePlayer) {
+            console.log('Player not found: ', data.id);
+            return;
+        }
+      
+        if (data.x < movePlayer.player.x) {
+            movePlayer.player.animations.play('left')
+        }
+        else if (data.x > movePlayer.player.x) {
+            movePlayer.player.animations.play('right')
+        }
+        else{
+            movePlayer.player.animations.play('stop')
+        }
+        
+        movePlayer.player.x = data.x
+        movePlayer.player.y = data.y
     },
     
     // Remove player
@@ -640,17 +647,6 @@ pRace.Game.prototype = {
         }
        this.time.events.add(1500, resetTrapThree, this);
     },
-    
-      // Find player by ID
-    playerSearchById: function(id) {
-      for (var i = 0; i < players.length; i++) {
-        if (players[i].player.name === id) {
-          return players[i]
-        }
-      }
-    
-      return false
-    },
     updateTimer: function() {
         minutes = Math.floor(this.time.time / 60000) % 60;
         seconds = Math.floor(this.time.time / 1000) % 60;
@@ -666,3 +662,14 @@ pRace.Game.prototype = {
     }
   
 };
+ 
+      // Find player by ID
+function playerSearchById(id) {
+    for (var i = 0; i < players.length; i++) {
+        if (players[i].player.name === id) {
+            return players[i]
+        }
+    }
+    
+    return false
+}
