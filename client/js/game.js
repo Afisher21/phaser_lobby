@@ -356,10 +356,10 @@ pRace.Game.prototype = {
     onActivateTrap: function(data){
     	var trap = data.trapNumb;
     	if (trap === 1){
-    		activateTrapOne();
+    		pRace.game.activateTrapOne();
     	}
        if (trap === 2){
-          this.activateTrapTwo();
+          pRace.game.activateTrapTwo();
        }
        if (trap === 3){
           this.activateTrapThree();
