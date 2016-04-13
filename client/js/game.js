@@ -350,7 +350,7 @@ pRace.Game.prototype = {
       socket.on('remove player', this.onRemovePlayer);
     
       // check traps
-      socket.on('trap activated', this.onActivateTrap);
+      socket.on('trap activated', this.onActivateTrap.bind(this));
     },
     // Activate trap
     onActivateTrap: function(data){
@@ -359,7 +359,7 @@ pRace.Game.prototype = {
     		pRace.game.activateTrapOne();
     	}
        if (trap === 2){
-          pRace.game.activateTrapTwo();
+         this.activateTrapTwo();
        }
        if (trap === 3){
           this.activateTrapThree();
